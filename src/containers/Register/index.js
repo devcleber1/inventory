@@ -8,6 +8,7 @@ import * as Yup from 'yup'
 
 import Logo from '../../assets/logo.png'
 import Serve from '../../assets/servidor.jpg'
+import { Button } from '../../components'
 import api from '../../services/api'
 import {
   Container,
@@ -16,7 +17,6 @@ import {
   Label,
   ContainerItens,
   ErrorMenssage,
-  Button,
 } from './styles'
 
 function Register() {

@@ -55,7 +55,7 @@ export const ContainerItens = styled.div`
     }
     p {
       font-size: 14px;
-      margin-top: 5px;
+      margin-top: 2px;
       margin-left: 10px;
     }
     a {
@@ -142,8 +142,13 @@ export const ContainerItens = styled.div`
     height: 120%;
     margin-right: 180px;
     border-radius: 0;
+
+    form {
+      margin-left: 25px;
+    }
     p {
       font-size: 12px;
+      margin-left: 15px;
     }
     img {
       width: 120px;
@@ -153,7 +158,11 @@ export const ContainerItens = styled.div`
   }
   @media screen and (max-width: 390px) {
     form {
-      margin-left: 8px;
+      margin-left: 20px;
+    }
+
+    p {
+      margin-left: 20px;
     }
   }
 `
@@ -215,36 +224,6 @@ export const Input = styled.input`
 
   @media screen and (max-width: 390px) {
     width: 340px;
-  }
-`
-
-export const Button = styled.button`
-  margin-top: 10px;
-  width: auto;
-  height: 50px;
-  background: #eb6304;
-  border-radius: 10px;
-  border: none;
-  cursor: pointer;
-  font-style: normal;
-  font-size: 20px;
-  font-weight: 500;
-  line-height: 19px;
-  text-align: center;
-  color: #eeeeee;
-  &:hover {
-    opacity: 0.8;
-  }
-  &:active {
-    opacity: 0.6;
-  }
-  @media screen and (max-width: 992px) {
-    height: 40px;
-    font-size: 15px;
-  }
-  @media screen and (max-width: 576px) {
-    height: 40px;
-    font-size: 15px;
   }
 `
 

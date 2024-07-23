@@ -8,6 +8,7 @@ import * as Yup from 'yup'
 
 import Informatic from '../../assets/informatic.png'
 import Logo from '../../assets/logo.png'
+import { Button } from '../../components'
 import { useUser } from '../../hooks/UserContext'
 import api from '../../services/api'
 import {
@@ -17,7 +18,6 @@ import {
   Label,
   ContainerItens,
   ErrorMenssage,
-  Button,
 } from './styles'
 
 function Login() {
