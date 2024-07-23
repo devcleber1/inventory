@@ -45,22 +45,18 @@ function Login() {
 
   const onSubmit = async (clientData) => {
     try {
-      const { status, data } = await api.post(
-        '/sessions',
-        {
+      const { data } = await toast.promise(
+        api.post('/sessions', {
           email: clientData.email,
           password: clientData.password,
-        },
-        { validateStatus: () => true }
+        }),
+        {
+          success: 'Seja bem-vindo(a)',
+          error: 'Verifique seu e-amil e senha',
+          pending: 'Verificando seus dados',
+        }
       )
 
-      if (status === 201 || status === 200) {
-        toast.success('Seja Bem-Vindo!')
-      } else if (status === 401) {
-        toast.error('E-mail ou Senha Incorretos')
-      } else {
-        throw new Error()
-      }
       putUserData(data)
 
       setTimeout(() => {
@@ -106,7 +102,7 @@ function Login() {
               />
               <ErrorMenssage>{errors.password?.message}</ErrorMenssage>
 
-              <Button type="submit">Log In</Button>
+              <Button type="submit">Sing In</Button>
 
               <p>
                 Não possui conta ?{' '}

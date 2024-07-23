@@ -68,6 +68,10 @@ function Register() {
       console.error('Error:', err) // Log do erro
       toast.error('Falha no sistema! Tente novamente')
     }
+
+    setTimeout(() => {
+      history.push('/login')
+    }, 1000)
   }
 
   const handleSignUpClick = () => {
@@ -125,7 +129,7 @@ function Register() {
               />
               <ErrorMenssage>{errors.confirmPassword?.message}</ErrorMenssage>
 
-              <Button type="submit">Log In</Button>
+              <Button type="submit">Sing Up</Button>
 
               <p>
                 Já possui conta ?{' '}
