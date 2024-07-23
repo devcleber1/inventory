@@ -7,6 +7,7 @@ import * as Yup from 'yup'
 
 import Informatic from '../../assets/informatic.png'
 import Logo from '../../assets/logo.png'
+import api from '../../services/api'
 import {
   Container,
   LogoImg,
@@ -36,9 +37,27 @@ function Login() {
     resolver: yupResolver(schema),
   })
 
-  const onSubmit = (data) => {
-    toast.success('Boa!')
-    console.log(data)
+  const onSubmit = async (clientData) => {
+    try {
+      const { status } = await api.post(
+        '/sessions',
+        {
+          email: clientData.email,
+          password: clientData.password,
+        },
+        { validateStatus: () => true }
+      )
+
+      if (status === 201 || status === 200) {
+        toast.success('Seja Bem-Vindo!')
+      } else if (status === 401) {
+        toast.error('E-mail ou Senha Incorretos')
+      } else {
+        throw new Error()
+      }
+    } catch (err) {
+      toast.error('⚠Falha no sistema❗ Tente novamente')
+    }
   }
 
   return (

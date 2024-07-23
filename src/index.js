@@ -9,7 +9,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <React.StrictMode>
     <>
-      <Login />
+      <Register />
       <ToastContainer autoClose={2000} theme="colored" />
       <Globalstyles />
     </>

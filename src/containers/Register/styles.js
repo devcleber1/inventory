@@ -22,8 +22,8 @@ export const RegisterImg = styled.img`
 `
 
 export const ContainerItens = styled.div`
-  height: 800px;
-  margin: 50px 120px 0 180px;
+  height: auto;
+  margin: 20px 0 0 150px;
   background: #ffffff;
   padding: 25px 75px;
   display: flex;
@@ -54,8 +54,8 @@ export const ContainerItens = styled.div`
       padding: 5px;
     }
     p {
-      font-size: 16px;
-      margin-top: 15px;
+      font-size: 14px;
+      margin-top: 5px;
       margin-left: 10px;
     }
     a {

@@ -7,6 +7,7 @@ import * as Yup from 'yup'
 
 import Logo from '../../assets/logo.png'
 import Serve from '../../assets/servidor.jpg'
+import api from '../../services/api'
 import {
   Container,
   RegisterImg,
@@ -40,9 +41,29 @@ function Register() {
     resolver: yupResolver(schema),
   })
 
-  const onSubmit = (data) => {
-    toast.success('Boa!')
-    console.log(data)
+  const onSubmit = async (clientData) => {
+    try {
+      const { status } = await api.post(
+        '/users',
+        {
+          name: clientData.name,
+          email: clientData.email,
+          password: clientData.password,
+        },
+        { validateStatus: () => true }
+      )
+
+      if (status === 201 || status === 200) {
+        toast.success('Cadastro criado com sucesso!')
+      } else if (status === 409) {
+        toast.error('E-mail já cadastrado! Faça login para continuar')
+      } else {
+        throw new Error()
+      }
+    } catch (err) {
+      console.error('Error:', err) // Log do erro
+      toast.error('Falha no sistema! Tente novamente')
+    }
   }
 
   return (
@@ -62,7 +83,7 @@ function Register() {
             placeholder="Digite se nome..."
             error={errors.name?.message}
           />
-          <ErrorMenssage>{errors.email?.message}</ErrorMenssage>
+          <ErrorMenssage>{errors.name?.message}</ErrorMenssage>
           <Label>Email</Label>
           <Input
             type="email"
@@ -82,11 +103,11 @@ function Register() {
           <Label>Confiirmar Senha</Label>
           <Input
             type="password"
-            {...register('password')}
+            {...register('confirmPassword')}
             placeholder="Confirme sua senha.."
             error={errors.confirmPassword?.message}
           />
-          <ErrorMenssage>{errors.email?.message}</ErrorMenssage>
+          <ErrorMenssage>{errors.confirmPassword?.message}</ErrorMenssage>
 
           <Button type="submit">Log In</Button>
 
