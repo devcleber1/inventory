@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -8,7 +8,8 @@ import * as Yup from 'yup'
 
 import Logo from '../../assets/logo.png'
 import Serve from '../../assets/servidor.jpg'
-import { Button } from '../../components'
+import { Button } from '../../components/Button'
+import Loading from '../../components/Loading'
 import api from '../../services/api'
 import {
   Container,
@@ -20,6 +21,8 @@ import {
 } from './styles'
 
 function Register() {
+  const [load, setLoad] = useState(false)
+  const history = useHistory()
   const schema = Yup.object().shape({
     name: Yup.string().required('O seu nome é obrigatório'),
     email: Yup.string()
@@ -67,59 +70,79 @@ function Register() {
     }
   }
 
+  const handleSignUpClick = () => {
+    setLoad(true)
+    setTimeout(() => {
+      setLoad(false)
+      history.push('/login')
+    }, 2000) // Simula um atraso de 2 segundos
+  }
+
   return (
     <Container>
-      <RegisterImg src={Serve} alt="Logo-register" />
-      <ContainerItens>
-        <img src={Logo} alt="Login-logo" />
-        <p>
-          {' '}
-          Crie sua conta para utilizar o sistema de inventário do Getulinho.
-        </p>
-        <form noValidate onSubmit={handleSubmit(onSubmit)}>
-          <Label>Nome</Label>
-          <Input
-            type="name"
-            {...register('name')}
-            placeholder="Digite se nome..."
-            error={errors.name?.message}
-          />
-          <ErrorMenssage>{errors.name?.message}</ErrorMenssage>
-          <Label>Email</Label>
-          <Input
-            type="email"
-            {...register('email')}
-            placeholder="email@gmail.com"
-            error={errors.email?.message}
-          />
-          <ErrorMenssage>{errors.email?.message}</ErrorMenssage>
-          <Label>Senha</Label>
-          <Input
-            type="password"
-            {...register('password')}
-            placeholder="Digite sua senha..."
-            error={errors.password?.message}
-          />
-          <ErrorMenssage>{errors.password?.message}</ErrorMenssage>
-          <Label>Confiirmar Senha</Label>
-          <Input
-            type="password"
-            {...register('confirmPassword')}
-            placeholder="Confirme sua senha.."
-            error={errors.confirmPassword?.message}
-          />
-          <ErrorMenssage>{errors.confirmPassword?.message}</ErrorMenssage>
+      {load ? (
+        <Loading />
+      ) : (
+        <>
+          <RegisterImg src={Serve} alt="Logo-register" />
+          <ContainerItens>
+            <img src={Logo} alt="Login-logo" />
+            <p>
+              {' '}
+              Crie sua conta para utilizar o sistema de inventário do Getulinho.
+            </p>
+            <form noValidate onSubmit={handleSubmit(onSubmit)}>
+              <Label>Nome</Label>
+              <Input
+                type="name"
+                {...register('name')}
+                placeholder="Digite se nome..."
+                error={errors.name?.message}
+              />
+              <ErrorMenssage>{errors.name?.message}</ErrorMenssage>
+              <Label>Email</Label>
+              <Input
+                type="email"
+                {...register('email')}
+                placeholder="email@gmail.com"
+                error={errors.email?.message}
+              />
+              <ErrorMenssage>{errors.email?.message}</ErrorMenssage>
+              <Label>Senha</Label>
+              <Input
+                type="password"
+                {...register('password')}
+                placeholder="Digite sua senha..."
+                error={errors.password?.message}
+              />
+              <ErrorMenssage>{errors.password?.message}</ErrorMenssage>
+              <Label>Confiirmar Senha</Label>
+              <Input
+                type="password"
+                {...register('confirmPassword')}
+                placeholder="Confirme sua senha.."
+                error={errors.confirmPassword?.message}
+              />
+              <ErrorMenssage>{errors.confirmPassword?.message}</ErrorMenssage>
 
-          <Button type="submit">Log In</Button>
+              <Button type="submit">Log In</Button>
 
-          <p>
-            Já possui conta ?{' '}
-            <Link style={{ color: '#eb6314' }} to="/login">
-              Sing In
-            </Link>
-          </p>
-        </form>
-      </ContainerItens>
+              <p>
+                Já possui conta ?{' '}
+                <a>
+                  <span
+                    style={{ color: '#eb6314' }}
+                    to="/login"
+                    onClick={handleSignUpClick}
+                  >
+                    Sing In
+                  </span>
+                </a>
+              </p>
+            </form>
+          </ContainerItens>
+        </>
+      )}
     </Container>
   )
 }
