@@ -1,0 +1,57 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "standard",
+        "plugin:react/recommended",
+        "plugin:react-hooks/recommended", // plugin do hook recomendado
+        "plugin:prettier/recommended" // plugin do prettier recomendado
+    ],
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react",
+        "eslint-plugin-import-helpers", // plugin do helpers
+        "react-hooks", // plugin do hook
+        "prettier" // plugin do prettier
+    ],
+    "rules": {
+        "prettier/prettier": [
+            "error",
+            { "endOfLine": "auto" } // regra do prettier
+          ],
+          "react/prop-types": 0, // regra do prop-types
+        "react-hooks/exhaustive-deps": [
+            "warn",
+            {
+                "additionalHooks": "(useMyCustomHook|useMyOtherCustomHook)"
+            }
+        ],
+        "no-unused-vars": "warn",
+        "import-helpers/order-imports": [ // configurações do helpers
+            "warn",
+            {
+                "newlinesBetween": "always",
+                "groups": [
+                    "/^react/",
+                    "module",
+                    "/@^shared/",
+                    [
+                        "parent",
+                        "sibling",
+                        "index"
+                    ]
+                ],
+                "alphabetize": {
+                    "order": "asc",
+                    "ignoreCase": true
+                }
+            }
+        ]
+    }
+}
+  
