@@ -62,6 +62,10 @@ function Login() {
         throw new Error()
       }
       putUserData(data)
+
+      setTimeout(() => {
+        history.push('/')
+      }, 1000)
     } catch (err) {
       toast.error('⚠Falha no sistema❗ Tente novamente')
     }
