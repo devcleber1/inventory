@@ -212,7 +212,13 @@ export const Input = styled.input`
   }
 `
 
-export const ErrorMenssage = styled.p``
+export const ErrorMenssage = styled.p`
+  font-style: normal;
+  font-weight: normal;
+  font-size: 4px;
+  line-height: 16px;
+  color: #cc1717;
+`
 
 export const Button = styled.button`
   margin-top: 10px;

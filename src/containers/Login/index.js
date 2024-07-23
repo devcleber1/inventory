@@ -1,6 +1,8 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
 
+import { yupResolver } from '@hookform/resolvers/yup'
 import * as Yup from 'yup'
 
 import Informatic from '../../assets/informatic.png'
@@ -30,9 +32,14 @@ function Login() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm()
+  } = useForm({
+    resolver: yupResolver(schema),
+  })
 
-  const onSubmit = (data) => console.log(data)
+  const onSubmit = (data) => {
+    toast.success('Boa!')
+    console.log(data)
+  }
 
   return (
     <Container>

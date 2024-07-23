@@ -248,4 +248,10 @@ export const Button = styled.button`
   }
 `
 
-export const ErrorMenssage = styled.p``
+export const ErrorMenssage = styled.p`
+  font-style: normal;
+  font-weight: normal;
+  font-size: 4px;
+  line-height: 16px;
+  color: #cc1717;
+`
