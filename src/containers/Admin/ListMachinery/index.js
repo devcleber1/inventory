@@ -14,6 +14,7 @@ import {
   EditIconStyles,
   StickyTableHead,
   StyledTableContainer,
+  DeleteIconStyles,
 } from './styles'
 
 function ListProducts() {
@@ -34,6 +35,18 @@ function ListProducts() {
     push(paths.EditMachinry, { machinery })
   }
 
+  async function deleteMachinery(id) {
+    try {
+      await api.delete(`/machinery/${id}`)
+      setMachinery(machinery.filter((item) => item.id !== id))
+      // Notificação de sucesso
+      console.log('Item deletado com sucesso!')
+    } catch (error) {
+      // Notificação de erro
+      console.error('Erro ao deletar o item:', error)
+    }
+  }
+
   return (
     <Container>
       <h2>Listagem de Maquinários</h2>
@@ -46,6 +59,7 @@ function ListProducts() {
               <TableCell>Equipamento</TableCell>
               <TableCell>Setor</TableCell>
               <TableCell>Editar</TableCell>
+              <TableCell>Excluir</TableCell>
             </TableRow>
           </StickyTableHead>
           <TableBody>
@@ -59,6 +73,9 @@ function ListProducts() {
                 <TableCell>{item.sectors.name}</TableCell>
                 <TableCell>
                   <EditIconStyles onClick={() => editMachinery(item)} />
+                </TableCell>
+                <TableCell>
+                  <DeleteIconStyles onClick={() => deleteMachinery(item.id)} />
                 </TableCell>
               </TableRow>
             ))}

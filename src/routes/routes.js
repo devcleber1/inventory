@@ -20,6 +20,11 @@ function Routes() {
         <PrivateRoute component={Equipments} path="/equipments" />
 
         <PrivateRoute component={Admin} path={paths.Machinery} isAdmin={true} />
+        <PrivateRoute
+          component={Admin}
+          path={paths.EditMachinry}
+          isAdmin={true}
+        />
       </Switch>
     </Router>
   )

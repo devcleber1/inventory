@@ -1,3 +1,4 @@
+import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
 import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
@@ -52,4 +53,8 @@ export const StickyTableHead = styled(TableHead)`
 export const EditIconStyles = styled(EditIcon)`
   cursor: pointer;
   color: #000000;
+`
+export const DeleteIconStyles = styled(DeleteIcon)`
+  cursor: pointer;
+  color: red;
 `

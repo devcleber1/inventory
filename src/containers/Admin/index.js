@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 
 import SideMenu from '../../components/SideMenuAdmin/SideMenu'
 import paths from '../../constants/paths'
+import EditMachinery from './EditMachinerys'
 import ListProducts from './ListMachinery'
 import { Container, ContainerItems } from './styles'
 function Admin({ match: { path } }) {
@@ -12,6 +13,7 @@ function Admin({ match: { path } }) {
       <SideMenu path={path} />
       <ContainerItems>
         {path === paths.Machinery && <ListProducts />}
+        {path === paths.EditMachinry && <EditMachinery />}
       </ContainerItems>
     </Container>
   )
