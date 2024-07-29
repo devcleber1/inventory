@@ -10,15 +10,10 @@ import * as Yup from 'yup'
 import api from '../../../services/api'
 import { Container, Label, Input, ButtonStyles, ErrorMenssage } from './styles'
 
-function EditMachinery() {
+function NewMachinery() {
   const [sector, setSector] = useState([])
   const [equipment, setEquipment] = useState([])
-  const {
-    push,
-    location: {
-      state: { machinery },
-    },
-  } = useHistory()
+  const { push } = useHistory()
 
   const schema = Yup.object().shape({
     name: Yup.string().required('Nome é obrigaatório'),
@@ -57,7 +52,7 @@ function EditMachinery() {
     productDataFormData.append('sector_id', data.sector.id)
 
     await toast.promise(
-      api.put(`/machinery/${machinery.id}`, {
+      api.post(`/machinery`, {
         name: data.name,
         source: data.source,
         mold: data.mold,
@@ -70,9 +65,9 @@ function EditMachinery() {
         sector_id: data.sector.id,
       }),
       {
-        pending: 'Editando novo maquinário...',
-        success: 'Maquinário editado com sucesso',
-        error: 'Falha ao editar o maquinário',
+        pending: 'Criaando novo maquinário...',
+        success: 'Maquinário criado com sucesso',
+        error: 'Falha ao criar o maquinário',
       }
     )
 
@@ -104,84 +99,52 @@ function EditMachinery() {
   return (
     <Container>
       <form noValidate onSubmit={handleSubmit(onSubmit)}>
-        <h2>Editar Maquinário</h2>
+        <h2>Adicionar Maquinário</h2>
         <div>
           <Label>Nome</Label>
-          <Input
-            type="text"
-            {...register('name')}
-            defaultValue={machinery.name}
-          />
+          <Input type="text" {...register('name')} />
           <ErrorMenssage>{errors.name?.message}</ErrorMenssage>
         </div>
 
         <div>
           <Label>Fonte</Label>
-          <Input
-            type="text"
-            {...register('source')}
-            defaultValue={machinery.source}
-          />
+          <Input type="text" {...register('source')} />
           <ErrorMenssage>{errors.source?.message}</ErrorMenssage>
         </div>
 
         <div>
           <Label>Modelo</Label>
-          <Input
-            type="text"
-            {...register('mold')}
-            defaultValue={machinery.mold}
-          />
+          <Input type="text" {...register('mold')} />
           <ErrorMenssage>{errors.mold?.message}</ErrorMenssage>
         </div>
 
         <div>
           <Label>Processador</Label>
-          <Input
-            type="text"
-            {...register('processor')}
-            defaultValue={machinery.processor}
-          />
+          <Input type="text" {...register('processor')} />
           <ErrorMenssage>{errors.processor?.message}</ErrorMenssage>
         </div>
 
         <div>
           <Label>Memória</Label>
-          <Input
-            type="text"
-            {...register('memory')}
-            defaultValue={machinery.memory}
-          />
+          <Input type="text" {...register('memory')} />
           <ErrorMenssage>{errors.memory?.message}</ErrorMenssage>
         </div>
 
         <div>
           <Label>Armazenamento</Label>
-          <Input
-            type="text"
-            {...register('storage')}
-            defaultValue={machinery.storage}
-          />
+          <Input type="text" {...register('storage')} />
           <ErrorMenssage>{errors.storage?.message}</ErrorMenssage>
         </div>
 
         <div>
           <Label>Patrimônio</Label>
-          <Input
-            type="text"
-            {...register('patrimony')}
-            defaultValue={machinery.patrimony}
-          />
+          <Input type="text" {...register('patrimony')} />
           <ErrorMenssage>{errors.patrimony?.message}</ErrorMenssage>
         </div>
 
         <div>
           <Label>System</Label>
-          <Input
-            type="text"
-            {...register('system')}
-            defaultValue={machinery.system}
-          />
+          <Input type="text" {...register('system')} />
           <ErrorMenssage>{errors.system?.message}</ErrorMenssage>
         </div>
 
@@ -189,7 +152,6 @@ function EditMachinery() {
           <Controller
             name="sector"
             control={control}
-            defaultValue={machinery.sector} // O objeto completo do setor deve ser passado aqui
             render={({ field }) => (
               <ReactSelect
                 {...field}
@@ -197,7 +159,6 @@ function EditMachinery() {
                 getOptionLabel={(opt) => opt.name}
                 getOptionValue={(opt) => opt.id}
                 placeholder="Setor"
-                defaultValue={machinery.sectors} // O objeto completo do setor deve ser passado aqui
                 onChange={(selectedOption) => field.onChange(selectedOption)}
               />
             )}
@@ -211,7 +172,6 @@ function EditMachinery() {
           <Controller
             name="equipment"
             control={control}
-            defaultValue={machinery.equipment}
             render={({ field }) => {
               return (
                 <ReactSelect
@@ -220,7 +180,6 @@ function EditMachinery() {
                   getOptionLabel={(cat) => cat.name}
                   getOptionValue={(cat) => cat.id}
                   placeholder="Equipamento"
-                  defaultValue={machinery.equipment}
                 />
               )
             }}
@@ -228,10 +187,10 @@ function EditMachinery() {
           <ErrorMenssage>{errors.equipment?.message}</ErrorMenssage>
         </div>
 
-        <ButtonStyles>Editar Mquinário</ButtonStyles>
+        <ButtonStyles>Criar Maquinário</ButtonStyles>
       </form>
     </Container>
   )
 }
 
-export default EditMachinery
+export default NewMachinery

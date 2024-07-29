@@ -6,6 +6,7 @@ import SideMenu from '../../components/SideMenuAdmin/SideMenu'
 import paths from '../../constants/paths'
 import EditMachinery from './EditMachinerys'
 import ListProducts from './ListMachinery'
+import NewMachinery from './NewMachinery'
 import { Container, ContainerItems } from './styles'
 function Admin({ match: { path } }) {
   return (
@@ -14,6 +15,7 @@ function Admin({ match: { path } }) {
       <ContainerItems>
         {path === paths.Machinery && <ListProducts />}
         {path === paths.EditMachinry && <EditMachinery />}
+        {path === paths.NewMachinery && <NewMachinery />}
       </ContainerItems>
     </Container>
   )

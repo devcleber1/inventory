@@ -18,16 +18,29 @@ export const Container = styled.div`
     gap: 25px;
 
     h2 {
-      margin-bottom: 20px;
+      margin-bottom: 5px;
       color: #eb6314;
       font-size: 24px;
-      font-weight: 300;
+      font-weight: 500;
       text-align: center;
 
       @media (max-width: 768px) {
         font-size: 20px;
         margin-bottom: 15px;
       }
+    }
+  }
+
+  h2 {
+    margin-bottom: 20px;
+    color: #000000;
+    font-size: 24px;
+    font-weight: 300;
+    text-align: center;
+
+    @media (max-width: 768px) {
+      font-size: 20px;
+      margin-bottom: 15px;
     }
   }
 `
