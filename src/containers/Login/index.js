@@ -61,7 +61,7 @@ function Login() {
 
       setTimeout(() => {
         if (data.admin) {
-          history.push('/admin')
+          history.push('/listar-maquinarios')
         } else {
           history.push('/')
         }

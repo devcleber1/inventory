@@ -1,3 +1,4 @@
+// src/components/Sidemenu/styles.js
 import { Link } from 'react-router-dom'
 
 import styled from 'styled-components'
@@ -11,18 +12,17 @@ export const Container = styled.div`
   position: fixed; /* Menu fixo na tela */
   height: 100vh; /* Altura da tela */
   transition: transform 0.3s ease; /* Transição suave para abertura e fechamento */
+  z-index: 1000; /* Garante que o menu esteja acima do conteúdo */
+  transform: ${(props) =>
+    props.isOpen ? 'translateX(0)' : 'translateX(-100%)'};
 
   /* Menus deslizantes em dispositivos móveis e tablets */
   @media (max-width: 768px) {
     width: 250px;
-    transform: ${(props) =>
-      props.isOpen ? 'translateX(0)' : 'translateX(-100%)'};
   }
 
   @media (max-width: 480px) {
     width: 200px;
-    transform: ${(props) =>
-      props.isOpen ? 'translateX(0)' : 'translateX(-100%)'};
   }
 
   hr {
@@ -63,18 +63,23 @@ export const ListLink = styled(Link)`
 `
 
 export const MenuButton = styled.div`
-  display: none; /* Oculta o botão em telas maiores */
   position: fixed;
   top: 10px;
   left: 10px;
-  background: #3c3c3c;
+  background: #eb6314;
   padding: 10px;
   border-radius: 50%;
   color: #ffffff;
   cursor: pointer;
-  z-index: 1000; /* Garante que o botão esteja acima do menu */
+  z-index: 1001; /* Garante que o botão esteja acima do menu */
+`
 
-  @media (max-width: 768px) {
-    display: block; /* Exibe o botão em tablets e dispositivos móveis */
-  }
+export const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 999; /* Garante que a sobreposição esteja acima do menu, mas abaixo do botão */
 `

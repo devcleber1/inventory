@@ -3,13 +3,16 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import SideMenu from '../../components/SideMenuAdmin/SideMenu'
-import { Container } from './styles'
-
-function Admin({ path }) {
+import paths from '../../constants/paths'
+import ListProducts from './ListMachinery'
+import { Container, ContainerItems } from './styles'
+function Admin({ match: { path } }) {
   return (
     <Container>
       <SideMenu path={path} />
-      <h1>Admin</h1>
+      <ContainerItems>
+        {path === paths.Machinery && <ListProducts />}
+      </ContainerItems>
     </Container>
   )
 }

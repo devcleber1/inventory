@@ -7,7 +7,13 @@ import PropTypes from 'prop-types'
 
 import { useUser } from '../../hooks/UserContext'
 import lislinks from './menu-list'
-import { Container, ItemContainer, ListLink, MenuButton } from './styles'
+import {
+  Container,
+  ItemContainer,
+  ListLink,
+  MenuButton,
+  Overlay,
+} from './styles'
 
 function SideMenuAdmin({ path }) {
   const { logout } = useUser()
@@ -19,10 +25,12 @@ function SideMenuAdmin({ path }) {
 
   return (
     <>
-      {/* Botão de menu (hamburger) visível em dispositivos móveis e tablets */}
+      {/* Botão de menu (hamburger) visível em todos os tamanhos de tela */}
       <MenuButton onClick={toggleMenu}>
         {isMenuOpen ? <CloseIcon /> : <MenuIcon />}
       </MenuButton>
+      {/* Sobreposição para fechamento do menu ao clicar fora */}
+      {isMenuOpen && <Overlay onClick={toggleMenu} />}
       {/* Menu lateral */}
       <Container isOpen={isMenuOpen}>
         <hr />
