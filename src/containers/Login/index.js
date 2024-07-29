@@ -32,7 +32,7 @@ function Login() {
     password: Yup.string()
       .required('Senha é obrigatória')
       .min(6, 'A senha deve conter 6 caracteres')
-      .max(12, 'A senha deve conter no máximo 12 carcteres'),
+      .max(12, 'A senha deve conter no máximo 12 caracteres'),
   })
 
   const {
@@ -52,7 +52,7 @@ function Login() {
         }),
         {
           success: 'Seja bem-vindo(a)',
-          error: 'Verifique seu e-amil e senha',
+          error: 'Verifique seu e-mail e senha',
           pending: 'Verificando seus dados',
         }
       )
@@ -60,7 +60,11 @@ function Login() {
       putUserData(data)
 
       setTimeout(() => {
-        history.push('/')
+        if (data.admin) {
+          history.push('/admin')
+        } else {
+          history.push('/')
+        }
       }, 1000)
     } catch (err) {
       toast.error('⚠Falha no sistema❗ Tente novamente')
@@ -102,17 +106,17 @@ function Login() {
               />
               <ErrorMenssage>{errors.password?.message}</ErrorMenssage>
 
-              <Button type="submit">Sing In</Button>
+              <Button type="submit">Sign In</Button>
 
               <p>
-                Não possui conta ?{' '}
+                Não possui conta?{' '}
                 <a>
                   <span
                     style={{ color: '#eb6314' }}
                     to="/cadastro"
                     onClick={handleSignUpClick}
                   >
-                    Sing Up
+                    Sign Up
                   </span>
                 </a>
               </p>
