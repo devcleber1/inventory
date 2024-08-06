@@ -8,29 +8,26 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as Yup from 'yup'
 
 import api from '../../../services/api'
-import { Container, Label, Input, ButtonStyles, ErrorMenssage } from './styles'
+import { Container, Label, Input, ButtonStyles, ErrorMessage } from './styles'
 
 function EditMachinery() {
-  const [sector, setSector] = useState([])
-  const [equipment, setEquipment] = useState([])
-  const {
-    push,
-    location: {
-      state: { machinery },
-    },
-  } = useHistory()
+  const [sectors, setSectors] = useState([])
+  const [equipments, setEquipments] = useState([])
+
+  const history = useHistory()
+  const { machinery } = history.location.state
 
   const schema = Yup.object().shape({
-    name: Yup.string().required('Nome é obrigaatório'),
-    source: Yup.string().required('Fonte é obrigtório'),
-    mold: Yup.string().required('Modelo é obrigaatório'),
-    processor: Yup.string().required('Processador é obrigtório'),
-    memory: Yup.string().required('Memória é obrigtório'),
-    storage: Yup.string().required('HD é obrigtório'),
+    name: Yup.string().required('Nome é obrigatório'),
+    source: Yup.string().required('Fonte é obrigatória'),
+    mold: Yup.string().required('Modelo é obrigatório'),
+    processor: Yup.string().required('Processador é obrigatório'),
+    memory: Yup.string().required('Memória é obrigatória'),
+    storage: Yup.string().required('HD é obrigatório'),
     patrimony: Yup.string(),
-    system: Yup.string().required('Sistema é obrigtório'),
-    equipment: Yup.object().required('Equipamento é obrigtório'),
-    sector: Yup.object().required('Setor é obrigtório'),
+    system: Yup.string().required('Sistema é obrigatório'),
+    equipment: Yup.object().required('Equipamento é obrigatório'),
+    sector: Yup.object().required('Setor é obrigatório'),
   })
 
   const {
@@ -43,192 +40,177 @@ function EditMachinery() {
   })
 
   const onSubmit = async (data) => {
-    const productDataFormData = new FormData()
+    try {
+      await toast.promise(
+        api.put(`/machinery/${machinery.id}`, {
+          name: data.name,
+          source: data.source,
+          mold: data.mold,
+          processor: data.processor,
+          memory: data.memory,
+          storage: data.storage,
+          patrimony: data.patrimony,
+          system: data.system,
+          equipment_id: data.equipment.id,
+          sector_id: data.sector.id,
+        }),
+        {
+          pending: 'Editando maquinário...',
+          success: 'Maquinário editado com sucesso!',
+          error: 'Falha ao editar o maquinário',
+        }
+      )
 
-    productDataFormData.append('name', data.name)
-    productDataFormData.append('source', data.source)
-    productDataFormData.append('mold', data.mold)
-    productDataFormData.append('processor', data.processor)
-    productDataFormData.append('memory', data.memory)
-    productDataFormData.append('storage', data.storage)
-    productDataFormData.append('patrimony', data.patrimony)
-    productDataFormData.append('system', data.system)
-    productDataFormData.append('equipment_id', data.equipment.id)
-    productDataFormData.append('sector_id', data.sector.id)
-
-    await toast.promise(
-      api.put(`/machinery/${machinery.id}`, {
-        name: data.name,
-        source: data.source,
-        mold: data.mold,
-        processor: data.processor,
-        memory: data.memory,
-        storage: data.storage,
-        patrimony: data.patrimony,
-        system: data.system,
-        equipment_id: data.equipment.id,
-        sector_id: data.sector.id,
-      }),
-      {
-        pending: 'Editando novo maquinário...',
-        success: 'Maquinário editado com sucesso',
-        error: 'Falha ao editar o maquinário',
-      }
-    )
-
-    setTimeout(() => {
-      push('/listar-maquinarios')
-    }, 2000)
+      history.push('/listar-maquinarios')
+    } catch (error) {}
   }
 
   useEffect(() => {
-    async function loadSector() {
-      const { data } = await api.get('/sector')
-
-      setSector(data)
+    const loadSectors = async () => {
+      try {
+        const { data } = await api.get('/sector')
+        setSectors(data)
+      } catch (error) {}
     }
 
-    loadSector()
+    loadSectors()
   }, [])
 
   useEffect(() => {
-    async function loadEquipment() {
-      const { data } = await api.get('/equipment')
-
-      setEquipment(data)
+    const loadEquipments = async () => {
+      try {
+        const { data } = await api.get('/equipment')
+        setEquipments(data)
+      } catch (error) {}
     }
 
-    loadEquipment()
+    loadEquipments()
   }, [])
 
   return (
     <Container>
       <form noValidate onSubmit={handleSubmit(onSubmit)}>
         <h2>Editar Maquinário</h2>
+
         <div>
           <Label>Nome</Label>
           <Input
             type="text"
-            {...register('name')}
             defaultValue={machinery.name}
+            {...register('name')}
           />
-          <ErrorMenssage>{errors.name?.message}</ErrorMenssage>
+          <ErrorMessage>{errors.name?.message}</ErrorMessage>
         </div>
 
         <div>
           <Label>Fonte</Label>
           <Input
             type="text"
-            {...register('source')}
             defaultValue={machinery.source}
+            {...register('source')}
           />
-          <ErrorMenssage>{errors.source?.message}</ErrorMenssage>
+          <ErrorMessage>{errors.source?.message}</ErrorMessage>
         </div>
 
         <div>
           <Label>Modelo</Label>
           <Input
             type="text"
-            {...register('mold')}
             defaultValue={machinery.mold}
+            {...register('mold')}
           />
-          <ErrorMenssage>{errors.mold?.message}</ErrorMenssage>
+          <ErrorMessage>{errors.mold?.message}</ErrorMessage>
         </div>
 
         <div>
           <Label>Processador</Label>
           <Input
             type="text"
-            {...register('processor')}
             defaultValue={machinery.processor}
+            {...register('processor')}
           />
-          <ErrorMenssage>{errors.processor?.message}</ErrorMenssage>
+          <ErrorMessage>{errors.processor?.message}</ErrorMessage>
         </div>
 
         <div>
           <Label>Memória</Label>
           <Input
             type="text"
-            {...register('memory')}
             defaultValue={machinery.memory}
+            {...register('memory')}
           />
-          <ErrorMenssage>{errors.memory?.message}</ErrorMenssage>
+          <ErrorMessage>{errors.memory?.message}</ErrorMessage>
         </div>
 
         <div>
           <Label>Armazenamento</Label>
           <Input
             type="text"
-            {...register('storage')}
             defaultValue={machinery.storage}
+            {...register('storage')}
           />
-          <ErrorMenssage>{errors.storage?.message}</ErrorMenssage>
+          <ErrorMessage>{errors.storage?.message}</ErrorMessage>
         </div>
 
         <div>
           <Label>Patrimônio</Label>
           <Input
             type="text"
-            {...register('patrimony')}
             defaultValue={machinery.patrimony}
+            {...register('patrimony')}
           />
-          <ErrorMenssage>{errors.patrimony?.message}</ErrorMenssage>
+          <ErrorMessage>{errors.patrimony?.message}</ErrorMessage>
         </div>
 
         <div>
-          <Label>System</Label>
+          <Label>Sistema</Label>
           <Input
             type="text"
-            {...register('system')}
             defaultValue={machinery.system}
+            {...register('system')}
           />
-          <ErrorMenssage>{errors.system?.message}</ErrorMenssage>
+          <ErrorMessage>{errors.system?.message}</ErrorMessage>
         </div>
 
         <div>
+          <Label>Setor</Label>
           <Controller
             name="sector"
             control={control}
-            defaultValue={machinery.sector} // O objeto completo do setor deve ser passado aqui
+            defaultValue={machinery.sector}
             render={({ field }) => (
               <ReactSelect
                 {...field}
-                options={sector}
-                getOptionLabel={(opt) => opt.name}
-                getOptionValue={(opt) => opt.id}
-                placeholder="Setor"
-                defaultValue={machinery.sectors} // O objeto completo do setor deve ser passado aqui
-                onChange={(selectedOption) => field.onChange(selectedOption)}
+                options={sectors}
+                getOptionLabel={(option) => option.name}
+                getOptionValue={(option) => option.id}
+                placeholder="Selecione um setor"
               />
             )}
           />
-          <ErrorMenssage>
-            {errors.sector && errors.sector.message}
-          </ErrorMenssage>
+          <ErrorMessage>{errors.sector?.message}</ErrorMessage>
         </div>
 
         <div>
+          <Label>Equipamento</Label>
           <Controller
             name="equipment"
             control={control}
             defaultValue={machinery.equipment}
-            render={({ field }) => {
-              return (
-                <ReactSelect
-                  {...field}
-                  options={equipment}
-                  getOptionLabel={(cat) => cat.name}
-                  getOptionValue={(cat) => cat.id}
-                  placeholder="Equipamento"
-                  defaultValue={machinery.equipment}
-                />
-              )
-            }}
-          ></Controller>
-          <ErrorMenssage>{errors.equipment?.message}</ErrorMenssage>
+            render={({ field }) => (
+              <ReactSelect
+                {...field}
+                options={equipments}
+                getOptionLabel={(option) => option.name}
+                getOptionValue={(option) => option.id}
+                placeholder="Selecione um equipamento"
+              />
+            )}
+          />
+          <ErrorMessage>{errors.equipment?.message}</ErrorMessage>
         </div>
 
-        <ButtonStyles>Editar Mquinário</ButtonStyles>
+        <ButtonStyles type="submit">Editar Maquinário</ButtonStyles>
       </form>
     </Container>
   )

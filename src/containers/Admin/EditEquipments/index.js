@@ -14,7 +14,6 @@ function EditEquipment() {
   const { push, location } = useHistory()
   const { equipment } = location.state || {}
 
-  // Mova o uso do hook `useForm` para fora de qualquer condicional
   const schema = Yup.object().shape({
     name: Yup.string().required('Nome é obrigatório'),
   })
@@ -28,7 +27,7 @@ function EditEquipment() {
   })
 
   const onSubmit = async (data) => {
-    if (!equipment) return // Adicione uma verificação adicional aqui, caso o estado não esteja definido
+    if (!equipment) return
 
     try {
       await toast.promise(
@@ -45,20 +44,13 @@ function EditEquipment() {
       setTimeout(() => {
         push(paths.Equipment)
       }, 2000)
-    } catch (error) {
-      console.error('Erro ao editar o equipamento:', error)
-    }
-  }
-
-  // Mantenha a verificação de `equipment` aqui, fora do retorno
-  if (!equipment) {
-    return <div>Nenhum equipamento selecionado para edição.</div>
+    } catch (error) {}
   }
 
   return (
     <Container>
       <form noValidate onSubmit={handleSubmit(onSubmit)}>
-        <h2>Editar Maquinário</h2>
+        <h2>Editar Equipamento</h2>
         <div>
           <Label>Nome</Label>
           <Input
@@ -69,7 +61,7 @@ function EditEquipment() {
           <ErrorMenssage>{errors.name?.message}</ErrorMenssage>
         </div>
 
-        <ButtonStyles type="submit">Editar Maquinário</ButtonStyles>
+        <ButtonStyles type="submit">Editar Equipamento</ButtonStyles>
       </form>
     </Container>
   )

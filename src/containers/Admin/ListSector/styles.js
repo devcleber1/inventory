@@ -20,9 +20,9 @@ export const Container = styled.div`
 
   h2 {
     margin-bottom: 20px;
-    color: #000000;
+    color: #eb6314;
     font-size: 24px;
-    font-weight: 300;
+    font-weight: 700;
     text-align: center;
 
     @media (max-width: 768px) {
@@ -36,7 +36,7 @@ export const Container = styled.div`
 export const StickyTableHead = styled(TableHead)`
   position: sticky;
   top: 0;
-  background-color: #fff;
+  background-color: #eb6314;
   z-index: 1;
 `
 
@@ -44,6 +44,16 @@ export const StickyTableHead = styled(TableHead)`
 export const EditIconStyles = styled(EditIcon)`
   cursor: pointer;
   color: #000000;
+
+  &:hover {
+    opacity: 0.8;
+    color: #eb6314;
+  }
+
+  &:active {
+    opacity: 0.6;
+    color: green;
+  }
 `
 export const DeleteIconStyles = styled(DeleteIcon)`
   cursor: pointer;

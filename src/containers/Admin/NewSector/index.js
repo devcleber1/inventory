@@ -34,9 +34,9 @@ function NewSector() {
         name: data.name,
       }),
       {
-        pending: 'Criando novo equipamento...',
-        success: 'Equipamento criado com sucesso',
-        error: 'Falha ao criar o equipamento',
+        pending: 'Criando novo setor...',
+        success: 'Setor criado com sucesso',
+        error: 'Falha ao criar o setor',
       }
     )
 

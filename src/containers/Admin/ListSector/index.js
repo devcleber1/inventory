@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 import Paper from '@mui/material/Paper'
 import Table from '@mui/material/Table'
@@ -38,6 +39,7 @@ function ListSector() {
     try {
       await api.delete(`/sector/${id}`)
       setSector(sector.filter((item) => item.id !== id))
+      toast.success('Setor Deletado')
     } catch (error) {}
   }
 
@@ -48,9 +50,9 @@ function ListSector() {
         <Table aria-label="simple table">
           <StickyTableHead>
             <TableRow>
-              <TableCell>NOME</TableCell>
-              <TableCell>EDITAR</TableCell>
-              <TableCell>EXCLUIR</TableCell>
+              <TableCell style={{ color: '#ffffff' }}>NOME</TableCell>
+              <TableCell style={{ color: '#ffffff' }}>EDITAR</TableCell>
+              <TableCell style={{ color: '#ffffff' }}>EXCLUIR</TableCell>
             </TableRow>
           </StickyTableHead>
           <TableBody>

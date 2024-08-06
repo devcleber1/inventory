@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 import Paper from '@mui/material/Paper'
 import Table from '@mui/material/Table'
@@ -22,12 +23,12 @@ function ListEquipaments() {
   const { push } = useHistory()
 
   useEffect(() => {
-    async function loadOrders() {
+    async function loadEquipments() {
       const { data } = await api.get('/equipment')
       setEquipment(data)
     }
 
-    loadOrders()
+    loadEquipments()
   }, [])
 
   function editEquipment(equipment) {
@@ -35,10 +36,11 @@ function ListEquipaments() {
     console.log('Equipment data:', equipment)
   }
 
-  async function deleteMachinery(id) {
+  async function deleteEquipment(id) {
     try {
       await api.delete(`/equipment/${id}`)
       setEquipment(equipment.filter((item) => item.id !== id))
+      toast.success('Equipamento deletado')
     } catch (error) {}
   }
 
@@ -49,9 +51,9 @@ function ListEquipaments() {
         <Table aria-label="simple table">
           <StickyTableHead>
             <TableRow>
-              <TableCell>NOME</TableCell>
-              <TableCell>EDITAR</TableCell>
-              <TableCell>EXCLUIR</TableCell>
+              <TableCell style={{ color: '#ffffff' }}>NOME</TableCell>
+              <TableCell style={{ color: '#ffffff' }}>EDITAR</TableCell>
+              <TableCell style={{ color: '#ffffff' }}>EXCLUIR</TableCell>
             </TableRow>
           </StickyTableHead>
           <TableBody>
@@ -64,7 +66,7 @@ function ListEquipaments() {
                   <EditIconStyles onClick={() => editEquipment(item)} />
                 </TableCell>
                 <TableCell>
-                  <DeleteIconStyles onClick={() => deleteMachinery(item.id)} />
+                  <DeleteIconStyles onClick={() => deleteEquipment(item.id)} />
                 </TableCell>
               </TableRow>
             ))}

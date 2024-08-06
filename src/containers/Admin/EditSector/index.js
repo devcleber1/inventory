@@ -28,7 +28,7 @@ function EditSector() {
   })
 
   const onSubmit = async (data) => {
-    if (!sector) return // Adicione uma verificação adicional aqui, caso o estado não esteja definido
+    if (!sector) return
 
     try {
       await toast.promise(
@@ -36,9 +36,9 @@ function EditSector() {
           name: data.name,
         }),
         {
-          pending: 'Editando equipamento...',
-          success: 'Equipamento editado com sucesso',
-          error: 'Falha ao editar o equipamento',
+          pending: 'Editando setor...',
+          success: 'Setor editado com sucesso',
+          error: 'Falha ao editar o setor',
         }
       )
 
@@ -48,15 +48,10 @@ function EditSector() {
     } catch (error) {}
   }
 
-  // Mantenha a verificação de `equipment` aqui, fora do retorno
-  if (!sector) {
-    return <div>Nenhum setor selecionado para edição.</div>
-  }
-
   return (
     <Container>
       <form noValidate onSubmit={handleSubmit(onSubmit)}>
-        <h2>Editar Seetor</h2>
+        <h2>Editar Setor</h2>
         <div>
           <Label>Nome</Label>
           <Input type="text" {...register('name')} defaultValue={sector.name} />

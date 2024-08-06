@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 import Paper from '@mui/material/Paper'
 import Table from '@mui/material/Table'
@@ -22,12 +23,16 @@ function ListProducts() {
   const { push } = useHistory()
 
   useEffect(() => {
-    async function loadOrders() {
-      const { data } = await api.get('/machinery')
-      setMachinery(data)
+    async function loadMachinery() {
+      try {
+        const { data } = await api.get('/machinery')
+        setMachinery(data)
+      } catch (error) {
+        toast.error('Erro ao carregar maquinários.')
+      }
     }
 
-    loadOrders()
+    loadMachinery()
   }, [])
 
   function editMachinery(machinery) {
@@ -38,11 +43,10 @@ function ListProducts() {
     try {
       await api.delete(`/machinery/${id}`)
       setMachinery(machinery.filter((item) => item.id !== id))
-      // Notificação de sucesso
-      console.log('Item deletado com sucesso!')
+
+      toast.success('Maquinário deletado com sucesso')
     } catch (error) {
-      // Notificação de erro
-      console.error('Erro ao deletar o item:', error)
+      toast.error('Erro ao deletar maquinário')
     }
   }
 
@@ -53,12 +57,12 @@ function ListProducts() {
         <Table aria-label="simple table">
           <StickyTableHead>
             <TableRow>
-              <TableCell>Nome</TableCell>
-              <TableCell>Fonte</TableCell>
-              <TableCell>Equipamento</TableCell>
-              <TableCell>Setor</TableCell>
-              <TableCell>Editar</TableCell>
-              <TableCell>Excluir</TableCell>
+              <TableCell style={{ color: '#ffffff' }}>Nome</TableCell>
+              <TableCell style={{ color: '#ffffff' }}>Fonte</TableCell>
+              <TableCell style={{ color: '#ffffff' }}>Equipamento</TableCell>
+              <TableCell style={{ color: '#ffffff' }}>Setor</TableCell>
+              <TableCell style={{ color: '#ffffff' }}>Editar</TableCell>
+              <TableCell style={{ color: '#ffffff' }}>Excluir</TableCell>
             </TableRow>
           </StickyTableHead>
           <TableBody>
