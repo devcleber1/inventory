@@ -4,7 +4,7 @@ const paths = {
   Machinery: '/listar-maquinarios',
   NewMachinery: '/novo-maquinario',
   EditMachinry: '/editar-maquinario',
-  Equipment: '/listar-equuipamentos',
+  Equipment: '/listar-equipamentos',
   EditEquipment: '/editar-equipamento',
   NewEquipment: '/novo-equipamento',
   Sector: '/listar-setores',

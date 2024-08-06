@@ -36,7 +36,7 @@ const listLink = [
   {
     id: 5,
     label: 'Novo-Equipamento',
-    link: paths.Equipment,
+    link: paths.NewEquipment,
     icon: AddToPhotosIcon,
   },
   {
