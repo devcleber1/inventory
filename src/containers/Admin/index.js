@@ -6,10 +6,13 @@ import SideMenu from '../../components/SideMenuAdmin/SideMenu'
 import paths from '../../constants/paths'
 import EditEquipment from './EditEquipments'
 import EditMachinery from './EditMachinerys'
+import EditSector from './EditSector'
 import ListEquipaments from './ListEquipment'
 import ListProducts from './ListMachinery'
+import ListSector from './ListSector'
 import NewEquipment from './NewEquipment'
 import NewMachinery from './NewMachinery'
+import NewSector from './NewSector'
 import { Container, ContainerItems } from './styles'
 function Admin({ match: { path } }) {
   return (
@@ -22,6 +25,9 @@ function Admin({ match: { path } }) {
         {path === paths.Equipment && <ListEquipaments />}
         {path === paths.EditEquipment && <EditEquipment />}
         {path === paths.NewEquipment && <NewEquipment />}
+        {path === paths.Sector && <ListSector />}
+        {path === paths.EditSector && <EditSector />}
+        {path === paths.NewSector && <NewSector />}
       </ContainerItems>
     </Container>
   )
