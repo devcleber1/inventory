@@ -8,6 +8,7 @@ import EditEquipment from './EditEquipments'
 import EditMachinery from './EditMachinerys'
 import ListEquipaments from './ListEquipment'
 import ListProducts from './ListMachinery'
+import NewEquipment from './NewEquipment'
 import NewMachinery from './NewMachinery'
 import { Container, ContainerItems } from './styles'
 function Admin({ match: { path } }) {
@@ -20,6 +21,7 @@ function Admin({ match: { path } }) {
         {path === paths.NewMachinery && <NewMachinery />}
         {path === paths.Equipment && <ListEquipaments />}
         {path === paths.EditEquipment && <EditEquipment />}
+        {path === paths.NewEquipment && <NewEquipment />}
       </ContainerItems>
     </Container>
   )

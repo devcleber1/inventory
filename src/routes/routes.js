@@ -36,6 +36,11 @@ function Routes() {
           path={paths.EditEquipment}
           isAdmin={true}
         />
+        <PrivateRoute
+          component={Admin}
+          path={paths.NewEquipment}
+          isAdmin={true}
+        />
       </Switch>
     </Router>
   )

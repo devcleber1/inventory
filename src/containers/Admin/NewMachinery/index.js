@@ -65,7 +65,7 @@ function NewMachinery() {
         sector_id: data.sector.id,
       }),
       {
-        pending: 'Criaando novo maquinário...',
+        pending: 'Criando novo maquinário...',
         success: 'Maquinário criado com sucesso',
         error: 'Falha ao criar o maquinário',
       }
