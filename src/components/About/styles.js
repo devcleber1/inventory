@@ -6,15 +6,21 @@ export const ContainerCard = styled.section`
   align-items: center;
   gap: 100px;
   background-color: #ffffff;
-  margin-top: 100px;
+  margin-top: 80px;
 
   @media screen and (max-width: 992px) {
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
+    margin-top: 60px;
   }
 
   @media screen and (max-width: 768px) {
     flex-direction: column;
+    margin-top: 40px;
+  }
+
+  @media screen and (max-width: 576px) {
+    margin-top: 30px;
   }
 `
 
@@ -23,6 +29,7 @@ export const CardLeft = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 5px;
   width: 598px;
   height: 600px;
   background-color: #fefefe;
@@ -35,7 +42,8 @@ export const CardLeft = styled.div`
   p {
     margin-top: 16px;
     margin-bottom: 35px;
-    font-size: 18px;
+    font-size: 16px;
+    font-weight: 300;
     line-height: 25px;
     padding-right: 20px;
     padding-left: 20px;
@@ -66,7 +74,11 @@ export const CardLeft = styled.div`
   }
 
   @media screen and (max-width: 576px) {
-    padding: 0 40px 0 40px;
+    width: 100%;
+    img {
+      padding: 20px;
+    }
+
     p {
       font-size: 13px;
       margin-bottom: 40px;
@@ -74,8 +86,6 @@ export const CardLeft = styled.div`
   }
 
   @media screen and (max-width: 450px) {
-    padding: 0 100px 0 100px;
-
     p {
       font-size: 15px;
     }
@@ -123,7 +133,7 @@ export const CardRight = styled.div`
     height: 640px;
 
     p {
-      margin-bottom: 25px;
+      margin-bottom: 20px;
     }
   }
 
@@ -131,7 +141,10 @@ export const CardRight = styled.div`
   }
 
   @media screen and (max-width: 576px) {
-    padding: 0 40px 0 40px;
+    width: 100%;
+    img {
+      padding: 20px;
+    }
     p {
       font-size: 13px;
       margin-bottom: 20px;
@@ -139,8 +152,6 @@ export const CardRight = styled.div`
   }
 
   @media screen and (max-width: 450px) {
-    padding: 0 100px 0 100px;
-
     p {
       font-size: 15px;
     }

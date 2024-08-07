@@ -17,7 +17,7 @@ function Routes() {
         <Route component={Register} path="/cadastro" />
 
         <PrivateRoute exact component={Home} path="/" />
-        <PrivateRoute component={Equipments} path="/equipments" />
+        <PrivateRoute component={Equipments} path="/equipamentos" />
 
         <PrivateRoute component={Admin} path={paths.Machinery} isAdmin={true} />
         <PrivateRoute

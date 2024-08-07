@@ -38,9 +38,13 @@ export const ItemContainer = styled.div`
   border-radius: 2px;
   margin: 8px;
   padding-left: 20px;
-
+  cursor: pointer;
   .icon {
     color: #ffffff;
+  }
+
+  &:hover {
+    background: #565656;
   }
 `
 

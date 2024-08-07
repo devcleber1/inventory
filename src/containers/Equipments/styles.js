@@ -8,6 +8,7 @@ export const Container = styled.div`
   max-width: 1200px;
   width: 100%;
   background-color: #fefefe;
+  margin-top: 70px;
 
   @media (max-width: 768px) {
     padding: 8px;
@@ -50,7 +51,8 @@ export const ContainerSelect = styled.div`
   h6 {
     margin: 0;
     font-size: 14px;
-    font-weight: 300;
+    font-weight: 500;
+    color: #fff;
   }
 
   @media (max-width: 768px) {

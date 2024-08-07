@@ -1,8 +1,32 @@
-import React from 'react'
+import React, { useRef } from 'react'
+import { toast } from 'react-toastify'
 
+import emailjs from '@emailjs/browser'
 import './contact.css'
 
 function Contact() {
+  const form = useRef()
+
+  const sendEmail = (e) => {
+    e.preventDefault()
+
+    emailjs
+      .sendForm(
+        'service_jpu7pto',
+        'template_auw79y8',
+        form.current,
+        'k4ZoePD71slnGLhSY'
+      )
+      .then((result) => {
+        toast.success('Email enviado com sucesso!')
+        e.target.reset()
+      })
+      .catch((error) => {
+        console.error('Erro ao enviar email:', error)
+        toast.error('Erro ao enviar email. Tente novamente.')
+      })
+  }
+
   return (
     <section className="contact section" id="contact">
       <div className="contact__container container grid">
@@ -49,7 +73,7 @@ function Contact() {
         <div className="contact__content">
           <h3 className="contact__title">Fale com Suporte</h3>
 
-          <form className="contact__form">
+          <form ref={form} onSubmit={sendEmail} className="contact__form">
             <div className="contact__form-div">
               <label className="contact__form-tag">Nome</label>
               <input
@@ -71,7 +95,7 @@ function Contact() {
             </div>
 
             <div className="contact__form-div contact__form-area">
-              <label className="contact__form-tag">Projeto</label>
+              <label className="contact__form-tag">Problema</label>
               <textarea
                 name="project"
                 cols="30"

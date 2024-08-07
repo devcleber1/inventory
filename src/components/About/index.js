@@ -37,7 +37,7 @@ function About() {
           dos computadores, melhorando a organização, segurança e manutenção
           preventiva dos equipamentos.
         </p>
-        <Link to="/equipments">Ir ao sistema</Link>
+        <Link to="/equipamentos">Ir ao sistema</Link>
       </CardRight>
     </ContainerCard>
   )
