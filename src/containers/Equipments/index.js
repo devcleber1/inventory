@@ -24,6 +24,11 @@ function Equipments() {
   const [rows, setRows] = useState([])
   const [sector, setSector] = useState([])
   const [selectedSector, setSelectedSector] = useState({ id: 0, name: 'Todos' }) // Selecionar "Todos" por padrão
+  const [equipment, setEquipment] = useState([])
+  const [selectedEquipment, setSelectedEquipment] = useState({
+    id: 0,
+    name: 'Todos',
+  }) // Selecionar "Todos" por padrão
   const [loading, setLoading] = useState(true)
   const [loadingSector, setLoadingSector] = useState(false) // Estado para controlar o loading ao selecionar setor
 
@@ -36,7 +41,16 @@ function Equipments() {
       setSector(allSectors)
     }
 
+    async function loadEquipments() {
+      const { data } = await api.get('/equipment')
+
+      // Adicionar a opção "Todos" ao array de equipamentos
+      const allEquipments = [{ id: 0, name: 'Todos' }, ...data]
+      setEquipment(allEquipments)
+    }
+
     loadSectors()
+    loadEquipments()
   }, [])
 
   useEffect(() => {
@@ -45,8 +59,15 @@ function Equipments() {
       setLoadingSector(true) // Iniciar o loading ao selecionar setor
 
       let url = '/machinery'
+      const queries = []
       if (selectedSector && selectedSector.id !== 0) {
-        url += `?sectorId=${selectedSector.id}`
+        queries.push(`sectorId=${selectedSector.id}`)
+      }
+      if (selectedEquipment && selectedEquipment.id !== 0) {
+        queries.push(`equipmentId=${selectedEquipment.id}`)
+      }
+      if (queries.length) {
+        url += `?${queries.join('&')}`
       }
 
       const { data: allMachinery } = await api.get(url)
@@ -59,7 +80,7 @@ function Equipments() {
     }
 
     loadMachinery()
-  }, [selectedSector])
+  }, [selectedSector, selectedEquipment])
 
   function createData(machinery) {
     return {
@@ -82,10 +103,17 @@ function Equipments() {
     setRows(newRows)
   }, [machinery])
 
-  const filteredRows =
-    selectedSector && selectedSector.id !== 0
-      ? rows.filter((row) => row.sectors === selectedSector.name)
-      : rows
+  const filteredRows = rows.filter((row) => {
+    const sectorMatch =
+      selectedSector && selectedSector.id !== 0
+        ? row.sectors === selectedSector.name
+        : true
+    const equipmentMatch =
+      selectedEquipment && selectedEquipment.id !== 0
+        ? row.equipments === selectedEquipment.name
+        : true
+    return sectorMatch && equipmentMatch
+  })
 
   return (
     <>
@@ -101,6 +129,15 @@ function Equipments() {
               placeholder="Setores"
               value={selectedSector} // Define o valor selecionado
               onChange={setSelectedSector}
+            />
+            <h6>Filtro dos Equipamentos:</h6>
+            <ReactSelect
+              options={equipment}
+              getOptionLabel={(eq) => eq.name}
+              getOptionValue={(eq) => eq.id}
+              placeholder="Equipamentos"
+              value={selectedEquipment} // Define o valor selecionado
+              onChange={setSelectedEquipment}
             />
           </ContainerSelect>
         </ContainerTitle>
@@ -143,6 +180,14 @@ function Equipments() {
                     <TableCell align="center">{row.patrimony}</TableCell>
                   </TableRow>
                 ))}
+                <TableRow>
+                  <TableCell align="right" colSpan={9}>
+                    TOTAL DE MÁQUINAS
+                  </TableCell>
+                  <TableCell align="center" sx={{ fontWeight: 'bold' }}>
+                    {filteredRows.length}
+                  </TableCell>
+                </TableRow>
               </TableBody>
             </Table>
           </TableContainer>
