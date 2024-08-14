@@ -1,10 +1,13 @@
 import styled from 'styled-components'
 
+import Estoque from '../../assets/estoque.jpg'
 export const Container = styled.div`
   height: 100vh;
   width: 100vw;
   display: flex;
-  background: #f6f7fc;
+  justify-content: center;
+  align-items: center;
+  background: url('${Estoque}');
 
   @media screen and (max-width: 992px) {
     display: flex;
@@ -13,17 +16,9 @@ export const Container = styled.div`
   }
 `
 
-export const LogoImg = styled.img`
-  margin-top: 30px;
-  width: 50%;
-
-  @media screen and (max-width: 992px) {
-    display: none;
-  }
-`
-
 export const ContainerItens = styled.div`
-  height: 800px;
+  height: auto;
+  width: auto;
   margin: 50px 120px 0 180px;
   background: #ffffff;
   padding: 25px 75px;
@@ -34,9 +29,9 @@ export const ContainerItens = styled.div`
   box-shadow: 14px -7px 25px -8px rgba(0, 0, 0, 0.75);
 
   img {
-    width: 250px;
-    height: 230px;
-    margin-left: 90px;
+    width: 200px;
+    height: 180px;
+    margin-left: 110px;
     margin-bottom: 20px;
   }
   p {
@@ -79,8 +74,8 @@ export const ContainerItens = styled.div`
     justify-content: center;
     align-items: center;
     img {
-      width: 180px;
-      height: 150px;
+      width: 150px;
+      height: 130px;
       margin-right: 100px;
     }
 
@@ -115,13 +110,13 @@ export const ContainerItens = styled.div`
     margin-right: 170px;
 
     img {
-      width: 200px;
-      height: 180px;
+      width: 130px;
+      height: 110px;
       margin-left: 100px;
     }
 
     p {
-      font-size: 18px;
+      font-size: 14px;
     }
 
     form {
@@ -132,9 +127,9 @@ export const ContainerItens = styled.div`
   }
   @media screen and (max-width: 480px) {
     width: auto;
-    height: 120%;
+    height: auto;
     margin-right: 180px;
-    border-radius: 0;
+    border-radius: 10px;
     p {
       font-size: 12px;
     }

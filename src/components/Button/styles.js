@@ -21,8 +21,8 @@ export const ContainerButton = styled.button`
     opacity: 0.6;
   }
   @media screen and (max-width: 992px) {
-    height: 80px;
-    font-size: 24px;
+    height: 50px;
+    font-size: 20px;
   }
   @media screen and (max-width: 576px) {
     height: 40px;

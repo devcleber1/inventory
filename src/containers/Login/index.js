@@ -6,7 +6,6 @@ import { toast } from 'react-toastify'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as Yup from 'yup'
 
-import Informatic from '../../assets/informatic.png'
 import Logo from '../../assets/logo.png'
 import { Button } from '../../components/Button'
 import Loading from '../../components/Loading'
@@ -14,7 +13,6 @@ import { useUser } from '../../hooks/UserContext'
 import api from '../../services/api'
 import {
   Container,
-  LogoImg,
   Input,
   Label,
   ContainerItens,
@@ -122,7 +120,6 @@ function Login() {
               </p>
             </form>
           </ContainerItens>
-          <LogoImg src={Informatic} alt="Login-image" />
         </>
       )}
     </Container>

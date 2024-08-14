@@ -4,7 +4,7 @@ export const Container = styled.div`
   height: 100vh;
   width: 100vw;
   display: flex;
-  background: #f6f7fc;
+  background: #ffffff;
 
   @media screen and (max-width: 992px) {
     display: flex;
@@ -24,13 +24,10 @@ export const RegisterImg = styled.img`
 export const ContainerItens = styled.div`
   height: auto;
   margin: 20px 0 0 150px;
-  background: #ffffff;
   padding: 25px 75px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border-radius: 20px;
-  box-shadow: 14px -7px 25px -8px rgba(0, 0, 0, 0.75);
 
   img {
     width: 230px;
@@ -98,12 +95,12 @@ export const ContainerItens = styled.div`
   }
 
   @media screen and (max-width: 768px) {
-    width: 60%;
+    margin-right: 115px;
 
     img {
       width: 150px;
       height: 130px;
-      margin-right: 110px;
+      margin-right: 120px;
     }
 
     p {
@@ -112,19 +109,16 @@ export const ContainerItens = styled.div`
   }
 
   @media screen and (max-width: 576px) {
-    width: auto;
-    height: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 15px;
-    margin-right: 170px;
 
     img {
       width: 150px;
       height: 120px;
-      margin-left: 100px;
+      margin-left: 120px;
     }
 
     p {
@@ -153,7 +147,7 @@ export const ContainerItens = styled.div`
     img {
       width: 120px;
       height: 100px;
-      margin-left: 120px;
+      margin-left: 150px;
     }
   }
   @media screen and (max-width: 390px) {
