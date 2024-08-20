@@ -9,7 +9,6 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 
-import Footer from '../../components/Footer'
 import Loading from '../../components/Loading'
 import api from '../../services/api'
 import {
@@ -193,7 +192,6 @@ function Equipments() {
           </TableContainer>
         )}
       </Container>
-      <Footer />
     </>
   )
 }

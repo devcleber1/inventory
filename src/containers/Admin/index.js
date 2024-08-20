@@ -12,7 +12,7 @@ import ListProducts from './ListMachinery'
 import ListSector from './ListSector'
 import NewEquipment from './NewEquipment'
 import NewMachinery from './NewMachinery'
-import NewSector from './NewSector'
+import NewSectors from './NewSectors'
 import { Container, ContainerItems } from './styles'
 function Admin({ match: { path } }) {
   return (
@@ -27,7 +27,7 @@ function Admin({ match: { path } }) {
         {path === paths.NewEquipment && <NewEquipment />}
         {path === paths.Sector && <ListSector />}
         {path === paths.EditSector && <EditSector />}
-        {path === paths.NewSector && <NewSector />}
+        {path === paths.NewSector && <NewSectors />}
       </ContainerItems>
     </Container>
   )

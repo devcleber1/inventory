@@ -10,7 +10,7 @@ export const Container = styled.footer`
   align-items: center;
   gap: 10px;
   width: 100%;
-  margin-top: auto;
+  margin-top: auto; /* Garantir que o footer fique na parte inferior da página */
 
   @media (max-width: 768px) {
     padding: 15px 0;
@@ -21,6 +21,7 @@ export const Container = styled.footer`
   }
 `
 
+// Resto do código permanece igual
 export const FooterTitle = styled.h4`
   color: #fefefe;
   font-size: 16px;

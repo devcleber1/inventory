@@ -1,5 +1,6 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 import PersonIcon from '@mui/icons-material/Person'
 
@@ -24,7 +25,10 @@ function Header() {
 
   const logoutUser = () => {
     logout()
-    push('/login')
+    toast.success('Logout realizado com sucesso!')
+    setTimeout(() => {
+      push('/login')
+    }, 2000) // Redireciona após 2 segundos
   }
 
   return (
