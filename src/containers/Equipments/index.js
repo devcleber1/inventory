@@ -168,8 +168,12 @@ function Equipments() {
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   >
                     <TableCell align="center">{row.name}</TableCell>
-                    <TableCell align="center">{row.sectors}</TableCell>
-                    <TableCell align="center">{row.equipments}</TableCell>
+                    <TableCell align="center">
+                      {row.sectors || 'Setor não disponível'}
+                    </TableCell>
+                    <TableCell align="center">
+                      {row.equipments || 'Equipamento não disponível'}
+                    </TableCell>
                     <TableCell align="center">{row.source}</TableCell>
                     <TableCell align="center">{row.mold}</TableCell>
                     <TableCell align="center">{row.processor}</TableCell>
