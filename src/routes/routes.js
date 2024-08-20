@@ -19,6 +19,9 @@ function Routes() {
         <PrivateRoute exact component={Home} path="/" />
         <PrivateRoute component={Equipments} path="/equipamentos" />
 
+        <PrivateRoute component={Admin} path={paths.Users} isAdmin={true} />
+        <PrivateRoute component={Admin} path={paths.EditUsers} isAdmin={true} />
+
         <PrivateRoute component={Admin} path={paths.Machinery} isAdmin={true} />
         <PrivateRoute
           component={Admin}
