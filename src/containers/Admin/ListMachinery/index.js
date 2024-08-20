@@ -72,8 +72,12 @@ function ListProducts() {
                   {item.name}
                 </TableCell>
                 <TableCell>{item.source}</TableCell>
-                <TableCell>{item.equipment.name}</TableCell>
-                <TableCell>{item.sectors.name}</TableCell>
+                <TableCell>
+                  {item.equipment?.name || 'Nome não disponível'}
+                </TableCell>
+                <TableCell>
+                  {item.sectors?.name || 'Nome não disponível'}
+                </TableCell>
                 <TableCell>
                   <EditIconStyles onClick={() => editMachinery(item)} />
                 </TableCell>

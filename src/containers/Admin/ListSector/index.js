@@ -39,7 +39,7 @@ function ListSector() {
     try {
       await api.delete(`/sector/${id}`)
       setSector(sector.filter((item) => item.id !== id))
-      toast.success('Setor Deletado')
+      toast.success('Setor deletado com sucesso ')
     } catch (error) {}
   }
 
