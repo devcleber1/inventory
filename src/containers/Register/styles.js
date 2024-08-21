@@ -19,6 +19,10 @@ export const RegisterImg = styled.img`
   @media screen and (max-width: 992px) {
     display: none;
   }
+
+  @media screen and (max-width: 390px) {
+    margin: auto;
+  }
 `
 
 export const ContainerItens = styled.div`
@@ -147,17 +151,24 @@ export const ContainerItens = styled.div`
     img {
       width: 120px;
       height: 100px;
-      margin-left: 150px;
+      margin-left: 130px;
     }
   }
-  @media screen and (max-width: 390px) {
+  @media screen and (max-width: 415px) {
+    width: 98%;
+    margin: auto;
+    height: auto;
     form {
-      margin-left: 20px;
+      margin-right: 20px;
     }
 
     p {
       margin-left: 20px;
     }
+  }
+
+  @media screen and (max-width: 390px) {
+    width: auto;
   }
 `
 export const Label = styled.label`
@@ -184,6 +195,10 @@ export const Label = styled.label`
 
   @media screen and (max-width: 480px) {
     font-size: 12px;
+  }
+
+  @media screen and (max-width: 390px) {
+    margin-left: 10px;
   }
 `
 
@@ -216,8 +231,12 @@ export const Input = styled.input`
     width: 380px;
   }
 
+  @media screen and (max-width: 415px) {
+    width: 380px;
+  }
+
   @media screen and (max-width: 390px) {
-    width: 340px;
+    width: 350px;
   }
 `
 

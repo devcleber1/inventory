@@ -139,7 +139,10 @@ export const ContainerItens = styled.div`
       margin-left: 120px;
     }
   }
-  @media screen and (max-width: 390px) {
+  @media screen and (max-width: 415px) {
+    width: 98%;
+    margin: auto;
+    height: auto;
     form {
       margin-left: 8px;
     }
@@ -202,8 +205,8 @@ export const Input = styled.input`
     width: 380px;
   }
 
-  @media screen and (max-width: 390px) {
-    width: 340px;
+  @media screen and (max-width: 415px) {
+    width: 310px;
   }
 `
 
