@@ -152,7 +152,7 @@ export const ContainerItens = styled.div`
 export const Label = styled.label`
   font-style: normal;
   font-size: 16px;
-  font-weight: 200;
+  font-weight: 400;
   line-height: 14px;
   color: #212529;
   margin-top: 20px;
