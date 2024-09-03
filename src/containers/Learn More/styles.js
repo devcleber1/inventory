@@ -2,6 +2,7 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
   margin-top: 100px;
+  margin-bottom: 30px;
   padding: 20px;
   font-family: Arial, sans-serif;
 
