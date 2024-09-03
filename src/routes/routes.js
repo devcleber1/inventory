@@ -5,6 +5,7 @@ import paths from '../constants/paths'
 import Admin from '../containers/Admin'
 import Equipments from '../containers/Equipments'
 import Home from '../containers/Home'
+import LearMore from '../containers/Learn More'
 import Login from '../containers/Login'
 import Register from '../containers/Register'
 import PrivateRoute from './private-routes'
@@ -18,6 +19,7 @@ function Routes() {
 
         <PrivateRoute exact component={Home} path="/" />
         <PrivateRoute component={Equipments} path="/equipamentos" />
+        <PrivateRoute component={LearMore} path="/saiba-mais" />
 
         <PrivateRoute component={Admin} path={paths.Users} isAdmin={true} />
         <PrivateRoute component={Admin} path={paths.EditUsers} isAdmin={true} />

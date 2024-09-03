@@ -19,7 +19,7 @@ function About() {
           projetado para transformar essa tarefa em um processo mais ágil,
           seguro e intuitivo.
         </p>
-        <a>Saiba Mais</a>
+        <Link to="/saiba-mais">Saiba Mais</Link>
       </CardLeft>
 
       <CardRight>
@@ -37,7 +37,7 @@ function About() {
           dos computadores, melhorando a organização, segurança e manutenção
           preventiva dos equipamentos.
         </p>
-        <Link to="/equipamentos">Ir ao sistema</Link>
+        <Link to="/equipamentos">Ir aos Equipamentos</Link>
       </CardRight>
     </ContainerCard>
   )
