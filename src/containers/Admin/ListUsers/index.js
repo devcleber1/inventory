@@ -63,22 +63,28 @@ function ListUsers() {
             </TableRow>
           </StickyTableHead>
           <TableBody>
-            {user.map((item) => (
-              <TableRow key={item.id}>
-                <TableCell component="th" scope="row">
-                  {item.name}
-                </TableCell>
-                <TableCell component="th" scope="row">
-                  {item.admin ? 'Sim' : 'Não'}
-                </TableCell>
-                <TableCell>
-                  <EditIconStyles onClick={() => editUser(item)} />
-                </TableCell>
-                <TableCell>
-                  <DeleteIconStyles onClick={() => deleteUser(item.id)} />
+            {user.length === 0 ? (
+              <TableRow>
+                <TableCell colSpan={4} style={{ textAlign: 'center' }}>
+                  <div>Nenhum usuário encontrado</div>
                 </TableCell>
               </TableRow>
-            ))}
+            ) : (
+              user.map((item) => (
+                <TableRow key={item.id}>
+                  <TableCell component="th" scope="row">
+                    {item.name}
+                  </TableCell>
+                  <TableCell>{item.admin ? 'Sim' : 'Não'}</TableCell>
+                  <TableCell>
+                    <EditIconStyles onClick={() => editUser(item)} />
+                  </TableCell>
+                  <TableCell>
+                    <DeleteIconStyles onClick={() => deleteUser(item.id)} />
+                  </TableCell>
+                </TableRow>
+              ))
+            )}
           </TableBody>
         </Table>
       </TableContainer>

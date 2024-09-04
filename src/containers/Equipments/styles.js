@@ -137,3 +137,10 @@ export const LoadingContainer = styled.div`
   height: 100%;
   min-height: 400px;
 `
+
+export const NoDataMessage = styled.div`
+  text-align: center;
+  padding: 20px;
+  font-size: 18px;
+  color: #555;
+`

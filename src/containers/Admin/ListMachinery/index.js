@@ -39,19 +39,25 @@ function ListProducts() {
 
   useEffect(() => {
     async function loadSectors() {
-      const { data } = await api.get('/sector')
-
-      // Adicionar a opção "Todos" ao array de setores
-      const allSectors = [{ id: 0, name: 'Todos' }, ...data]
-      setSector(allSectors)
+      try {
+        const { data } = await api.get('/sector')
+        const allSectors = [{ id: 0, name: 'Todos' }, ...data]
+        setSector(allSectors)
+      } catch (error) {
+        toast.error('Erro ao carregar setores')
+        console.error('Erro ao carregar setores:', error)
+      }
     }
 
     async function loadEquipments() {
-      const { data } = await api.get('/equipment')
-
-      // Adicionar a opção "Todos" ao array de equipamentos
-      const allEquipments = [{ id: 0, name: 'Todos' }, ...data]
-      setEquipment(allEquipments)
+      try {
+        const { data } = await api.get('/equipment')
+        const allEquipments = [{ id: 0, name: 'Todos' }, ...data]
+        setEquipment(allEquipments)
+      } catch (error) {
+        toast.error('Erro ao carregar equipamentos')
+        console.error('Erro ao carregar equipamentos:', error)
+      }
     }
 
     loadSectors()
@@ -75,13 +81,16 @@ function ListProducts() {
         url += `?${queries.join('&')}`
       }
 
-      const { data: allMachinery } = await api.get(url)
-
-      setTimeout(() => {
+      try {
+        const { data: allMachinery } = await api.get(url)
         setMachinery(allMachinery)
+      } catch (error) {
+        toast.error('Erro ao carregar maquinário')
+        console.error('Erro ao carregar maquinário:', error)
+      } finally {
         setLoading(false)
         setLoadingSector(false) // Finalizar o loading ao selecionar setor
-      }, 1000)
+      }
     }
 
     loadMachinery()
@@ -122,10 +131,10 @@ function ListProducts() {
     try {
       await api.delete(`/machinery/${id}`)
       setMachinery(machinery.filter((item) => item.id !== id))
-
       toast.success('Maquinário deletado com sucesso')
     } catch (error) {
       toast.error('Erro ao deletar maquinário')
+      console.error('Erro ao deletar maquinário:', error)
     }
   }
 
@@ -159,6 +168,8 @@ function ListProducts() {
           <LoadingContainer>
             <Loading /> {/* Loading centralizado */}
           </LoadingContainer>
+        ) : filteredRows.length === 0 ? (
+          <div>Nenhum dado encontrado</div>
         ) : (
           <TableContainer component={Paper} style={{ overflowX: 'auto' }}>
             <Table sx={{ minWidth: 400 }} aria-label="simple table">
@@ -197,7 +208,7 @@ function ListProducts() {
                   </TableRow>
                 ))}
                 <TableRow>
-                  <TableCell align="right" colSpan={9}>
+                  <TableCell align="right" colSpan={5}>
                     TOTAL DE MÁQUINAS
                   </TableCell>
                   <TableCell align="center" sx={{ fontWeight: 'bold' }}>

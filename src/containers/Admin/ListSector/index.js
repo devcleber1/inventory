@@ -56,19 +56,27 @@ function ListSector() {
             </TableRow>
           </StickyTableHead>
           <TableBody>
-            {sector.map((item) => (
-              <TableRow key={item.id}>
-                <TableCell component="th" scope="row">
-                  {item.name}
-                </TableCell>
-                <TableCell>
-                  <EditIconStyles onClick={() => editSector(item)} />
-                </TableCell>
-                <TableCell>
-                  <DeleteIconStyles onClick={() => deleteSector(item.id)} />
+            {sector.length === 0 ? (
+              <TableRow>
+                <TableCell colSpan={3}>
+                  <div>Nenhum setor encontrado</div>
                 </TableCell>
               </TableRow>
-            ))}
+            ) : (
+              sector.map((item) => (
+                <TableRow key={item.id}>
+                  <TableCell component="th" scope="row">
+                    {item.name}
+                  </TableCell>
+                  <TableCell>
+                    <EditIconStyles onClick={() => editSector(item)} />
+                  </TableCell>
+                  <TableCell>
+                    <DeleteIconStyles onClick={() => deleteSector(item.id)} />
+                  </TableCell>
+                </TableRow>
+              ))
+            )}
           </TableBody>
         </Table>
       </TableContainer>

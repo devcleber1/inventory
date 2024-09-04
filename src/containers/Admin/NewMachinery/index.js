@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { useForm, Controller } from 'react-hook-form'
-import { useHistory } from 'react-router-dom'
 import ReactSelect from 'react-select'
 import { toast } from 'react-toastify'
 
@@ -13,7 +12,6 @@ import { Container, Label, Input, ButtonStyles, ErrorMenssage } from './styles'
 function NewMachinery() {
   const [sector, setSector] = useState([])
   const [equipment, setEquipment] = useState([])
-  const { push } = useHistory()
 
   const schema = Yup.object().shape({
     name: Yup.string().required('Nome é obrigaatório'),
@@ -70,10 +68,6 @@ function NewMachinery() {
         error: 'Falha ao criar o maquinário',
       }
     )
-
-    setTimeout(() => {
-      push('/listar-maquinarios')
-    }, 2000)
   }
 
   useEffect(() => {

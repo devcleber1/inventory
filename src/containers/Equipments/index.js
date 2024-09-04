@@ -16,6 +16,7 @@ import {
   ContainerTitle,
   ContainerSelect,
   LoadingContainer,
+  NoDataMessage, // Adicione um componente para mensagem de dados não encontrados
 } from './styles'
 
 function Equipments() {
@@ -33,19 +34,23 @@ function Equipments() {
 
   useEffect(() => {
     async function loadSectors() {
-      const { data } = await api.get('/sector')
-
-      // Adicionar a opção "Todos" ao array de setores
-      const allSectors = [{ id: 0, name: 'Todos' }, ...data]
-      setSector(allSectors)
+      try {
+        const { data } = await api.get('/sector')
+        const allSectors = [{ id: 0, name: 'Todos' }, ...data]
+        setSector(allSectors)
+      } catch (error) {
+        console.error('Erro ao carregar setores:', error)
+      }
     }
 
     async function loadEquipments() {
-      const { data } = await api.get('/equipment')
-
-      // Adicionar a opção "Todos" ao array de equipamentos
-      const allEquipments = [{ id: 0, name: 'Todos' }, ...data]
-      setEquipment(allEquipments)
+      try {
+        const { data } = await api.get('/equipment')
+        const allEquipments = [{ id: 0, name: 'Todos' }, ...data]
+        setEquipment(allEquipments)
+      } catch (error) {
+        console.error('Erro ao carregar equipamentos:', error)
+      }
     }
 
     loadSectors()
@@ -69,13 +74,15 @@ function Equipments() {
         url += `?${queries.join('&')}`
       }
 
-      const { data: allMachinery } = await api.get(url)
-
-      setTimeout(() => {
+      try {
+        const { data: allMachinery } = await api.get(url)
         setMachinery(allMachinery)
+      } catch (error) {
+        console.error('Erro ao carregar maquinário:', error)
+      } finally {
         setLoading(false)
         setLoadingSector(false) // Finalizar o loading ao selecionar setor
-      }, 1000)
+      }
     }
 
     loadMachinery()
@@ -144,6 +151,8 @@ function Equipments() {
           <LoadingContainer>
             <Loading /> {/* Loading centralizado */}
           </LoadingContainer>
+        ) : filteredRows.length === 0 ? (
+          <NoDataMessage>Nenhum dado encontrado</NoDataMessage>
         ) : (
           <TableContainer component={Paper} style={{ overflowX: 'auto' }}>
             <Table sx={{ minWidth: 400 }} aria-label="simple table">

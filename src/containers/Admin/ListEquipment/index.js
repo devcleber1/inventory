@@ -57,19 +57,29 @@ function ListEquipaments() {
             </TableRow>
           </StickyTableHead>
           <TableBody>
-            {equipment.map((item) => (
-              <TableRow key={item.id}>
-                <TableCell component="th" scope="row">
-                  {item.name}
-                </TableCell>
-                <TableCell>
-                  <EditIconStyles onClick={() => editEquipment(item)} />
-                </TableCell>
-                <TableCell>
-                  <DeleteIconStyles onClick={() => deleteEquipment(item.id)} />
+            {equipment.length === 0 ? (
+              <TableRow>
+                <TableCell colSpan={3}>
+                  <div>Nenhum equipamento encontrado</div>
                 </TableCell>
               </TableRow>
-            ))}
+            ) : (
+              equipment.map((item) => (
+                <TableRow key={item.id}>
+                  <TableCell component="th" scope="row">
+                    {item.name}
+                  </TableCell>
+                  <TableCell>
+                    <EditIconStyles onClick={() => editEquipment(item)} />
+                  </TableCell>
+                  <TableCell>
+                    <DeleteIconStyles
+                      onClick={() => deleteEquipment(item.id)}
+                    />
+                  </TableCell>
+                </TableRow>
+              ))
+            )}
           </TableBody>
         </Table>
       </TableContainer>
