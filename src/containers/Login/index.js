@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
@@ -21,6 +21,8 @@ import {
 function Login() {
   const { putUserData } = useUser()
   const history = useHistory()
+  const [loading, setLoading] = useState(false)
+
   const schema = Yup.object().shape({
     email: Yup.string()
       .email('Digite um e-mail válido')
@@ -39,31 +41,48 @@ function Login() {
     resolver: yupResolver(schema),
   })
 
+  const handleApiErrors = (status) => {
+    switch (status) {
+      case 401:
+        toast.error('Usuário ou senha incorretos. Tente novamente.')
+        break
+      case 404:
+        toast.error('Usuário não encontrado. Verifique seu e-mail.')
+        break
+      default:
+        toast.error('⚠ Falha no sistema❗ Tente novamente mais tarde.')
+        break
+    }
+  }
+
   const onSubmit = async (clientData) => {
+    setLoading(true)
     try {
-      const { data } = await toast.promise(
-        api.post('/sessions', {
-          email: clientData.email,
-          password: clientData.password,
-        }),
-        {
-          success: 'Seja bem-vindo(a)',
-          error: 'Verifique seu e-mail e senha',
-          pending: 'Verificando seus dados',
-        }
-      )
+      const response = await api.post('/sessions', {
+        email: clientData.email,
+        password: clientData.password,
+      })
 
-      putUserData(data)
+      // Aqui você pode verificar a resposta e garantir que o usuário foi cadastrado corretamente.
+      const { data, status } = response
 
-      setTimeout(() => {
-        if (data.admin) {
-          history.push('/listar-maquinarios')
-        } else {
-          history.push('/')
-        }
-      }, 1000)
+      if (status === 200) {
+        toast.success('Seja bem-vindo(a)')
+        putUserData(data)
+        setTimeout(() => {
+          history.push(data.admin ? '/listar-maquinarios' : '/')
+        }, 1000)
+      } else {
+        handleApiErrors(status)
+      }
     } catch (err) {
-      toast.error('⚠Falha no sistema❗ Tente novamente')
+      if (err.response) {
+        handleApiErrors(err.response.status)
+      } else {
+        toast.error('Erro na conexão com o servidor. Tente novamente.')
+      }
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -90,7 +109,9 @@ function Login() {
           />
           <ErrorMenssage>{errors.password?.message}</ErrorMenssage>
 
-          <Button type="submit">Sign In</Button>
+          <Button type="submit" disabled={loading}>
+            {loading ? 'Verificando...' : 'Sign In'}
+          </Button>
         </form>
       </ContainerItens>
     </Container>

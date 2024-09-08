@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
@@ -20,17 +20,18 @@ import {
 } from './styles'
 
 function Register() {
+  const [loading, setLoading] = useState(false)
   const history = useHistory()
 
   const schema = Yup.object().shape({
     name: Yup.string().required('O seu nome é obrigatório'),
     email: Yup.string()
-      .email('Digite um e-amil válido')
+      .email('Digite um e-mail válido')
       .required('O e-mail é obrigatório'),
     password: Yup.string()
       .required('A senha é obrigatória')
-      .min(6, 'A senha deve conter no min 6 caracteres até no  max 12')
-      .max(12, 'A senha só pode ir até 12 caracteres'),
+      .min(6, 'A senha deve conter entre 6 e 12 caracteres')
+      .max(12, 'A senha deve conter entre 6 e 12 caracteres'),
     confirmPassword: Yup.string()
       .required('Confirme a sua senha')
       .oneOf([Yup.ref('password')], 'As senhas devem ser iguais'),
@@ -45,31 +46,47 @@ function Register() {
   })
 
   const onSubmit = async (clientData) => {
+    setLoading(true)
     try {
-      const { status } = await api.post(
-        '/users',
-        {
-          name: clientData.name,
-          email: clientData.email,
-          password: clientData.password,
-        },
-        { validateStatus: () => true }
-      )
+      const response = await api.post('/users', {
+        name: clientData.name,
+        email: clientData.email,
+        password: clientData.password,
+      })
+
+      const { status } = response
 
       if (status === 201 || status === 200) {
         toast.success('Cadastro criado com sucesso!')
-
         setTimeout(() => {
           history.push('/painel-usuarios')
         }, 2000)
       } else if (status === 409) {
         toast.error('E-mail já cadastrado! Faça login para continuar')
       } else {
-        throw new Error()
+        throw new Error('Erro inesperado')
       }
     } catch (err) {
-      console.error('Error:', err) // Log do erro
-      toast.error('Falha no sistema! Tente novamente')
+      if (err.response) {
+        const { status, data } = err.response
+        if (status === 400) {
+          toast.error(
+            data.message ||
+              'Erro de validação. Verifique os dados e tente novamente.'
+          )
+        } else if (status === 409) {
+          // Tratamento específico para erro de e-mail já cadastrado
+          toast.error('E-mail já cadastrado! Faça login para continuar.')
+        } else if (status === 500) {
+          toast.error('Erro interno do servidor. Tente novamente mais tarde.')
+        } else {
+          toast.error('Erro inesperado. Tente novamente.')
+        }
+      } else {
+        toast.error('Erro na conexão com o servidor. Tente novamente.')
+      }
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -79,15 +96,14 @@ function Register() {
       <ContainerItens>
         <img src={Logo} alt="Login-logo" />
         <p>
-          {' '}
           Crie uma conta para utilizar o sistema de inventário do Getulinho.
         </p>
         <form noValidate onSubmit={handleSubmit(onSubmit)}>
           <Label>Nome</Label>
           <Input
-            type="name"
+            type="text"
             {...register('name')}
-            placeholder="Digite se nome..."
+            placeholder="Digite seu nome..."
             error={errors.name?.message}
           />
           <ErrorMenssage>{errors.name?.message}</ErrorMenssage>
@@ -107,16 +123,18 @@ function Register() {
             error={errors.password?.message}
           />
           <ErrorMenssage>{errors.password?.message}</ErrorMenssage>
-          <Label>Confiirmar Senha</Label>
+          <Label>Confirmar Senha</Label>
           <Input
             type="password"
             {...register('confirmPassword')}
-            placeholder="Confirme sua senha.."
+            placeholder="Confirme sua senha..."
             error={errors.confirmPassword?.message}
           />
           <ErrorMenssage>{errors.confirmPassword?.message}</ErrorMenssage>
 
-          <Button type="submit">Cadastrar Usuário</Button>
+          <Button type="submit" disabled={loading}>
+            {loading ? 'Cadastrando...' : 'Cadastrar Usuário'}
+          </Button>
         </form>
       </ContainerItens>
     </Container>
