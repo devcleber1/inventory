@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
@@ -11,9 +11,10 @@ import { Container, Label, Input, ButtonStyles, ErrorMenssage } from './styles'
 
 function NewSector() {
   const { push } = useHistory()
+  const [loading, setLoading] = useState(false) // Estado de carregamento
 
   const schema = Yup.object().shape({
-    name: Yup.string().required('Nome é obrigaatório'),
+    name: Yup.string().required('Nome é obrigatório'),
   })
 
   const {
@@ -25,24 +26,22 @@ function NewSector() {
   })
 
   const onSubmit = async (data) => {
-    const productDataFormData = new FormData()
-
-    productDataFormData.append('name', data.name)
-
-    await toast.promise(
-      api.post(`/sector`, {
-        name: data.name,
-      }),
-      {
+    setLoading(true) // Inicia o carregamento
+    try {
+      await toast.promise(api.post(`/sector`, { name: data.name }), {
         pending: 'Criando novo setor...',
         success: 'Setor criado com sucesso',
         error: 'Falha ao criar o setor',
-      }
-    )
+      })
 
-    setTimeout(() => {
-      push('/listar-setores')
-    }, 2000)
+      setTimeout(() => {
+        push('/listar-setores')
+      }, 2000)
+    } catch (error) {
+      toast.error('Erro ao criar setor')
+    } finally {
+      setLoading(false) // Finaliza o carregamento
+    }
   }
 
   return (
@@ -55,7 +54,9 @@ function NewSector() {
           <ErrorMenssage>{errors.name?.message}</ErrorMenssage>
         </div>
 
-        <ButtonStyles>Criar Setor</ButtonStyles>
+        <ButtonStyles type="submit" disabled={loading}>
+          {loading ? 'Criando...' : 'Criar Setor'}
+        </ButtonStyles>
       </form>
     </Container>
   )

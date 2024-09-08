@@ -9,10 +9,11 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   padding: 20px;
-  background-color: #f5f5f5;
+  background-color: #ffffff;
 
   form {
     background: #fefefe;
+    box-shadow: 12px 13px 31px -3px rgba(0, 0, 0, 0.51);
     padding: 30px;
     display: flex;
     flex-direction: column;
@@ -25,7 +26,7 @@ export const Container = styled.div`
       margin-bottom: 10px;
       color: #eb6314;
       font-size: 18px;
-      font-weight: 300;
+      font-weight: 500;
       text-align: center;
 
       @media (max-width: 768px) {

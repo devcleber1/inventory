@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useForm } from 'react-hook-form'
 import { useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
@@ -8,7 +8,6 @@ import * as Yup from 'yup'
 
 import Logo from '../../assets/logo.png'
 import { Button } from '../../components/Button'
-import Loading from '../../components/Loading'
 import { useUser } from '../../hooks/UserContext'
 import api from '../../services/api'
 import {
@@ -21,7 +20,6 @@ import {
 
 function Login() {
   const { putUserData } = useUser()
-  const [load, setLoad] = useState(false)
   const history = useHistory()
   const schema = Yup.object().shape({
     email: Yup.string()
@@ -69,59 +67,32 @@ function Login() {
     }
   }
 
-  const handleSignUpClick = () => {
-    setLoad(true)
-    setTimeout(() => {
-      setLoad(false)
-      history.push('/cadastro')
-    }, 2000) // Simula um atraso de 2 segundos
-  }
-
   return (
     <Container>
-      {load ? (
-        <Loading />
-      ) : (
-        <>
-          <ContainerItens>
-            <img src={Logo} alt="Login-logo" />
-            <p>Seja bem-vindo ao sistema de inventário do Getulinho.</p>
-            <form noValidate onSubmit={handleSubmit(onSubmit)}>
-              <Label>Email</Label>
-              <Input
-                type="email"
-                {...register('email')}
-                placeholder="email@gmail.com"
-                error={errors.email?.message}
-              />
-              <ErrorMenssage>{errors.email?.message}</ErrorMenssage>
-              <Label>Senha</Label>
-              <Input
-                type="password"
-                {...register('password')}
-                placeholder="Digite sua senha..."
-                error={errors.password?.message}
-              />
-              <ErrorMenssage>{errors.password?.message}</ErrorMenssage>
+      <ContainerItens>
+        <img src={Logo} alt="Login-logo" />
+        <p>Seja bem-vindo ao sistema de inventário do Getulinho.</p>
+        <form noValidate onSubmit={handleSubmit(onSubmit)}>
+          <Label>Email</Label>
+          <Input
+            type="email"
+            {...register('email')}
+            placeholder="email@gmail.com"
+            error={errors.email?.message}
+          />
+          <ErrorMenssage>{errors.email?.message}</ErrorMenssage>
+          <Label>Senha</Label>
+          <Input
+            type="password"
+            {...register('password')}
+            placeholder="Digite sua senha..."
+            error={errors.password?.message}
+          />
+          <ErrorMenssage>{errors.password?.message}</ErrorMenssage>
 
-              <Button type="submit">Sign In</Button>
-
-              <p>
-                Não possui conta?{' '}
-                <a>
-                  <span
-                    style={{ color: '#eb6314' }}
-                    to="/cadastro"
-                    onClick={handleSignUpClick}
-                  >
-                    Sign Up
-                  </span>
-                </a>
-              </p>
-            </form>
-          </ContainerItens>
-        </>
-      )}
+          <Button type="submit">Sign In</Button>
+        </form>
+      </ContainerItens>
     </Container>
   )
 }

@@ -11,6 +11,7 @@ export const Container = styled.div`
 
   form {
     background: #f5f5f5;
+    box-shadow: 12px 13px 31px -3px rgba(0, 0, 0, 0.51);
     border-radius: 10px;
     padding: 20px;
     display: flex;

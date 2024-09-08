@@ -15,12 +15,14 @@ import ListUsers from './ListUsers'
 import NewEquipment from './NewEquipment'
 import NewMachinery from './NewMachinery'
 import NewSectors from './NewSectors'
+import RegisteUser from './Register'
 import { Container, ContainerItems } from './styles'
 function Admin({ match: { path } }) {
   return (
     <Container>
       <SideMenu path={path} />
       <ContainerItems>
+        {path === paths.Register && <RegisteUser />}
         {path === paths.Users && <ListUsers />}
         {path === paths.EditUsers && <EditUser />}
         {path === paths.Machinery && <ListProducts />}

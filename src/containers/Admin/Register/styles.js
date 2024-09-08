@@ -127,9 +127,11 @@ export const ContainerItens = styled.div`
 
     p {
       font-size: 18px;
+      margin-right: 5px;
     }
 
     form {
+      margin-right: 30px;
       p {
         font-size: 14px;
       }
@@ -142,7 +144,7 @@ export const ContainerItens = styled.div`
     border-radius: 0;
 
     form {
-      margin-left: 25px;
+      margin-right: 20px;
     }
     p {
       font-size: 12px;
@@ -159,16 +161,33 @@ export const ContainerItens = styled.div`
     margin: auto;
     height: auto;
     form {
-      margin-right: 20px;
+      margin-right: 40px;
     }
 
     p {
-      margin-left: 20px;
+      margin-right: 60px;
+    }
+
+    img {
+      margin-right: 170px;
     }
   }
 
   @media screen and (max-width: 390px) {
     width: auto;
+    margin-left: 20px;
+
+    form {
+      margin-right: 50px;
+    }
+
+    p {
+      margin-right: 70px;
+    }
+
+    img {
+      margin-right: 180px;
+    }
   }
 `
 export const Label = styled.label`

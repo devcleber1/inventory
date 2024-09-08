@@ -1,4 +1,5 @@
 const paths = {
+  Register: '/cadastro',
   Users: '/painel-usuarios',
   EditUsers: '/editar-usuario',
   Machinery: '/listar-maquinarios',

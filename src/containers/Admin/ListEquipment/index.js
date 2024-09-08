@@ -9,6 +9,7 @@ import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 import TableRow from '@mui/material/TableRow'
 
+import Loading from '../../../components/Loading' // Componente de loading
 import paths from '../../../constants/paths'
 import api from '../../../services/api'
 import {
@@ -20,12 +21,20 @@ import {
 
 function ListEquipaments() {
   const [equipment, setEquipment] = useState([])
+  const [loading, setLoading] = useState(true) // Estado de loading
   const { push } = useHistory()
 
   useEffect(() => {
     async function loadEquipments() {
-      const { data } = await api.get('/equipment')
-      setEquipment(data)
+      setLoading(true)
+      try {
+        const { data } = await api.get('/equipment')
+        setEquipment(data)
+      } catch (error) {
+        toast.error('Erro ao carregar equipamentos.')
+      } finally {
+        setLoading(false)
+      }
     }
 
     loadEquipments()
@@ -41,48 +50,54 @@ function ListEquipaments() {
       await api.delete(`/equipment/${id}`)
       setEquipment(equipment.filter((item) => item.id !== id))
       toast.success('Equipamento deletado')
-    } catch (error) {}
+    } catch (error) {
+      toast.error('Erro ao deletar equipamento')
+    }
   }
 
   return (
     <Container>
       <h2>Listagem de Equipamentos</h2>
-      <TableContainer component={Paper}>
-        <Table aria-label="simple table">
-          <StickyTableHead>
-            <TableRow>
-              <TableCell style={{ color: '#ffffff' }}>NOME</TableCell>
-              <TableCell style={{ color: '#ffffff' }}>EDITAR</TableCell>
-              <TableCell style={{ color: '#ffffff' }}>EXCLUIR</TableCell>
-            </TableRow>
-          </StickyTableHead>
-          <TableBody>
-            {equipment.length === 0 ? (
+      {loading ? (
+        <Loading />
+      ) : (
+        <TableContainer component={Paper}>
+          <Table aria-label="simple table">
+            <StickyTableHead>
               <TableRow>
-                <TableCell colSpan={3}>
-                  <div>Nenhum equipamento encontrado</div>
-                </TableCell>
+                <TableCell style={{ color: '#ffffff' }}>NOME</TableCell>
+                <TableCell style={{ color: '#ffffff' }}>EDITAR</TableCell>
+                <TableCell style={{ color: '#ffffff' }}>EXCLUIR</TableCell>
               </TableRow>
-            ) : (
-              equipment.map((item) => (
-                <TableRow key={item.id}>
-                  <TableCell component="th" scope="row">
-                    {item.name}
-                  </TableCell>
-                  <TableCell>
-                    <EditIconStyles onClick={() => editEquipment(item)} />
-                  </TableCell>
-                  <TableCell>
-                    <DeleteIconStyles
-                      onClick={() => deleteEquipment(item.id)}
-                    />
+            </StickyTableHead>
+            <TableBody>
+              {equipment.length === 0 ? (
+                <TableRow>
+                  <TableCell colSpan={3}>
+                    <div>Nenhum equipamento encontrado</div>
                   </TableCell>
                 </TableRow>
-              ))
-            )}
-          </TableBody>
-        </Table>
-      </TableContainer>
+              ) : (
+                equipment.map((item) => (
+                  <TableRow key={item.id}>
+                    <TableCell component="th" scope="row">
+                      {item.name}
+                    </TableCell>
+                    <TableCell>
+                      <EditIconStyles onClick={() => editEquipment(item)} />
+                    </TableCell>
+                    <TableCell>
+                      <DeleteIconStyles
+                        onClick={() => deleteEquipment(item.id)}
+                      />
+                    </TableCell>
+                  </TableRow>
+                ))
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      )}
     </Container>
   )
 }
