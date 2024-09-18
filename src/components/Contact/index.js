@@ -38,10 +38,10 @@ function Contact() {
               <i className="bx bx-mail-send contact__card-icon"></i>
 
               <h3 className="contact__card-title">Email</h3>
-              <span className="contact__card-data">user@email.com</span>
+              <span className="contact__card-data">ti@hgvf.org.br</span>
 
               <a
-                href="mailto:devcleber@outlook.com"
+                href="mailto:ti@hgvf.org.br"
                 className="contact__button"
                 target="_blank"
                 rel="noreferrer"

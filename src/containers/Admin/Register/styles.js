@@ -104,11 +104,16 @@ export const ContainerItens = styled.div`
     img {
       width: 150px;
       height: 130px;
-      margin-right: 120px;
+      margin-right: 180px;
+    }
+
+    form {
+      margin-right: 50px;
     }
 
     p {
       font-size: 14px;
+      margin-right: 50px;
     }
   }
 
@@ -127,11 +132,12 @@ export const ContainerItens = styled.div`
 
     p {
       font-size: 18px;
-      margin-right: 5px;
+      margin-right: 70px;
+      line-height: 19px;
     }
 
     form {
-      margin-right: 30px;
+      margin-right: 60px;
       p {
         font-size: 14px;
       }
