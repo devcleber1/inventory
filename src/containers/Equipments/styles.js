@@ -1,5 +1,5 @@
+import { TableContainer } from '@mui/material'
 import styled from 'styled-components'
-
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -12,6 +12,32 @@ export const Container = styled.div`
 
   @media (max-width: 768px) {
     padding: 8px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 5px;
+  }
+`
+
+export const TableContainerStyled = styled(TableContainer)`
+  width: 100%;
+  overflow-x: auto;
+
+  @media (max-width: 768px) {
+    table {
+      font-size: 12px; // Tamanho da fonte reduzido para telas menores
+    }
+  }
+
+  @media (max-width: 480px) {
+    table {
+      font-size: 10px;
+    }
+
+    th,
+    td {
+      padding: 6px; // Reduzir o espaçamento nas células da tabela
+    }
   }
 `
 

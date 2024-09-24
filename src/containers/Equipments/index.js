@@ -155,7 +155,15 @@ function Equipments() {
           <NoDataMessage>Nenhum dado encontrado</NoDataMessage>
         ) : (
           <TableContainer component={Paper} style={{ overflowX: 'auto' }}>
-            <Table sx={{ minWidth: 400 }} aria-label="simple table">
+            <Table
+              sx={{
+                minWidth: 400,
+                '@media (max-width: 768px)': {
+                  minWidth: '100%', // Faz a tabela ocupar 100% em dispositivos móveis
+                },
+              }}
+              aria-label="simple table"
+            >
               <TableHead>
                 <TableRow>
                   <TableCell align="center">NOME</TableCell>
@@ -173,7 +181,7 @@ function Equipments() {
               <TableBody>
                 {filteredRows.map((row) => (
                   <TableRow
-                    key={row.id} // Use o campo id como a chave única
+                    key={row.id}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   >
                     <TableCell align="center">{row.name}</TableCell>
