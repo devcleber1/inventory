@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom'
 import ReactSelect from 'react-select'
 import { toast } from 'react-toastify'
 
+import Button from '@mui/material/Button' // Botão do Material-UI para download
 import Paper from '@mui/material/Paper'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
@@ -10,6 +11,7 @@ import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
+import { saveAs } from 'file-saver' // Biblioteca para salvar arquivos no navegador
 
 import Loading from '../../../components/Loading'
 import paths from '../../../constants/paths'
@@ -27,7 +29,7 @@ function ListProducts() {
   const [machinery, setMachinery] = useState([])
   const [rows, setRows] = useState([])
   const [sector, setSector] = useState([])
-  const [selectedSector, setSelectedSector] = useState({ id: 0, name: 'Todos' }) // Selecionar "Todos" por padrão
+  const [selectedSector, setSelectedSector] = useState({ id: 0, name: 'Todos' })
   const [equipment, setEquipment] = useState([])
   const [loading, setLoading] = useState(true)
   const [loadingSector, setLoadingSector] = useState(false)
@@ -45,7 +47,6 @@ function ListProducts() {
         setSector(allSectors)
       } catch (error) {
         toast.error('Erro ao carregar setores')
-        console.error('Erro ao carregar setores:', error)
       }
     }
 
@@ -56,7 +57,6 @@ function ListProducts() {
         setEquipment(allEquipments)
       } catch (error) {
         toast.error('Erro ao carregar equipamentos')
-        console.error('Erro ao carregar equipamentos:', error)
       }
     }
 
@@ -67,7 +67,7 @@ function ListProducts() {
   useEffect(() => {
     async function loadMachinery() {
       setLoading(true)
-      setLoadingSector(true) // Iniciar o loading ao selecionar setor
+      setLoadingSector(true)
 
       let url = '/machinery'
       const queries = []
@@ -86,10 +86,9 @@ function ListProducts() {
         setMachinery(allMachinery)
       } catch (error) {
         toast.error('Erro ao carregar maquinário')
-        console.error('Erro ao carregar maquinário:', error)
       } finally {
         setLoading(false)
-        setLoadingSector(false) // Finalizar o loading ao selecionar setor
+        setLoadingSector(false)
       }
     }
 
@@ -103,6 +102,12 @@ function ListProducts() {
       sectors: machinery.sectors?.name,
       equipments: machinery.equipment?.name,
       source: machinery.source,
+      mold: machinery.mold,
+      processor: machinery.processor,
+      memory: machinery.memory,
+      storage: machinery.storage,
+      system: machinery.system,
+      patrimony: machinery.patrimony,
     }
   }
 
@@ -123,6 +128,33 @@ function ListProducts() {
     return sectorMatch && equipmentMatch
   })
 
+  async function handleDownload() {
+    try {
+      const sectorId = selectedSector.id || 0
+      const response = await api.get(
+        `/machinery/report?sector_id=${sectorId}`,
+        {
+          responseType: 'blob',
+        }
+      )
+      console.log('Resposta do relatório:', response) // Adicione este log
+
+      const blob = new Blob([response.data], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      })
+      saveAs(blob, 'machinery_report.xlsx')
+    } catch (error) {
+      toast.error('Erro ao baixar o relatório')
+      console.error('Erro ao baixar o relatório:', error)
+      if (error.response) {
+        console.error('Erro ao baixar o relatório:', error.response.data)
+        console.error('Código de status:', error.response.status)
+      } else {
+        console.error('Erro ao baixar o relatório:', error.message)
+      }
+    }
+  }
+
   function editMachinery(machinery) {
     push(paths.EditMachinry, { machinery })
   }
@@ -134,7 +166,6 @@ function ListProducts() {
       toast.success('Maquinário deletado com sucesso')
     } catch (error) {
       toast.error('Erro ao deletar maquinário')
-      console.error('Erro ao deletar maquinário:', error)
     }
   }
 
@@ -143,6 +174,10 @@ function ListProducts() {
       <Container style={{ paddingBottom: '150px' }}>
         <ContainerTitle>
           <h2>Listagem dos Equipamentos</h2>
+          {/* Botão de Download do Relatório */}
+          <Button variant="contained" color="primary" onClick={handleDownload}>
+            Baixar Relatório
+          </Button>
           <ContainerSelect>
             <h6>Filtro dos Setores:</h6>
             <ReactSelect
@@ -150,7 +185,7 @@ function ListProducts() {
               getOptionLabel={(sec) => sec.name}
               getOptionValue={(sec) => sec.id}
               placeholder="Setores"
-              value={selectedSector} // Define o valor selecionado
+              value={selectedSector}
               onChange={setSelectedSector}
             />
             <h6>Filtro dos Equipamentos:</h6>
@@ -159,14 +194,14 @@ function ListProducts() {
               getOptionLabel={(eq) => eq.name}
               getOptionValue={(eq) => eq.id}
               placeholder="Equipamentos"
-              value={selectedEquipment} // Define o valor selecionado
+              value={selectedEquipment}
               onChange={setSelectedEquipment}
             />
           </ContainerSelect>
         </ContainerTitle>
         {loadingSector || loading ? (
           <LoadingContainer>
-            <Loading /> {/* Loading centralizado */}
+            <Loading />
           </LoadingContainer>
         ) : filteredRows.length === 0 ? (
           <div>Nenhum dado encontrado</div>
@@ -175,10 +210,16 @@ function ListProducts() {
             <Table sx={{ minWidth: 400 }} aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell>NOME</TableCell>
-                  <TableCell>FONTE</TableCell>
-                  <TableCell>EQUIPAMENTO</TableCell>
+                  <TableCell align="center">NOME</TableCell>
+                  <TableCell align="center">FONTE</TableCell>
+                  <TableCell align="center">EQUIPAMENTO</TableCell>
                   <TableCell align="center">SETOR</TableCell>
+                  <TableCell align="center">MODELO</TableCell>
+                  <TableCell align="center">PROCESSADOR</TableCell>
+                  <TableCell align="center">MEMÓRIA</TableCell>
+                  <TableCell align="center">HD</TableCell>
+                  <TableCell align="center">SISTEMA</TableCell>
+                  <TableCell align="center">PATRIMÔNIO</TableCell>
                   <TableCell>EDITAR</TableCell>
                   <TableCell>DELETAR</TableCell>
                 </TableRow>
@@ -186,7 +227,7 @@ function ListProducts() {
               <TableBody>
                 {filteredRows.map((row) => (
                   <TableRow
-                    key={row.id} // Use o campo id como a chave única
+                    key={row.id}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   >
                     <TableCell>{row.name}</TableCell>
@@ -197,6 +238,12 @@ function ListProducts() {
                     <TableCell align="center">
                       {row.sectors || 'Setor não disponível'}
                     </TableCell>
+                    <TableCell align="center">{row.mold}</TableCell>
+                    <TableCell align="center">{row.processor}</TableCell>
+                    <TableCell align="center">{row.memory}</TableCell>
+                    <TableCell align="center">{row.storage}</TableCell>
+                    <TableCell align="center">{row.system}</TableCell>
+                    <TableCell align="center">{row.patrimony}</TableCell>
                     <TableCell>
                       <EditIconStyles onClick={() => editMachinery(row)} />
                     </TableCell>

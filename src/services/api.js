@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const apiCodeBurger = axios.create({
-  baseURL: 'http://localhost:3001', // Somente o host aqui, sem a rota específica
+  baseURL: 'http://192.168.100.165:3001',
 })
 
 apiCodeBurger.interceptors.request.use(async (config) => {
