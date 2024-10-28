@@ -1,28 +1,44 @@
-## 🗃 Inventory Management System in React
-#### This repository contains a robust system developed in React, designed to manage and monitor IT inventory in an organization. The system is divided into two main interfaces:
+# 🗃 Inventory Management System in React
 
-### 🖥 Client Interface:
+This repository contains a robust system developed in React, designed to manage and monitor IT inventory within an organization. The system is divided into two main interfaces:
 
-- Intuitive home page that provides an overview of the system
-- Interactive inventory screen with a detailed asset table
-- Advanced filtering capabilities by sector and equipment type
-- Full view of computers and their respective sectors
+## 🖥 Client Interface:
 
-### 💾 Administrator Interface:
+- Intuitive homepage that provides an overview of the system.
+- Interactive inventory screen with a detailed asset table.
+- Advanced filtering capabilities by sector and equipment type.
+- Full view of computers and their respective sectors.
 
-- Control panel for efficient asset management
-- CRUD (Create, Read, Update, Delete) functionalities for record keeping
+## 💾 Administrator Interface:
 
-#### 👀 Key features:
+- Control panel for efficient asset management.
+- CRUD (Create, Read, Update, Delete) functionalities for maintaining records.
 
-- Modular and scalable architecture
-- Responsive design for access on multiple devices
-- RESTful API integration for communication with the backend
-- Implementation of good React development practices
+### 👀 Key Features:
 
-This project aims to optimize the control of IT assets, providing an effective solution for organizations of all sizes.
+- Modular and scalable architecture.
+- Responsive design for access on multiple devices.
+- RESTful API integration for backend communication.
+- Implementation of best practices in React development.
 
+This project aims to optimize the control of IT assets, offering an effective solution for organizations of all sizes.
 
+## 🛠 Technologies Used:
+
+- **React**
+- **Axios**
+- **Styled-Components**
+- **React-Toastify**
+- **React-Select**
+- **MUI (Material-UI)**
+- **Material-Icons**
+- **React Hook Form**
+- **React Hooks**
+- **ESLint**
+- **Prettier**
+- **Yup**
+- **Prop-Types**
+- **Context API**
 
 ## 🗃️ Installation
 1. Clone the repository:
@@ -59,103 +75,103 @@ npm start
 - Contex-Api
 
 
-## Interface
+## 🖼️ System Interface
 
-### Login
-When accessing the system, the user is taken to the login screen. User registration is done by the system administrator.
+### 🔐 Login Screen
+When accessing the system for the first time, the user will be taken to the login screen. User registration is done by the system administrator.
 
 <img src="https://github.com/user-attachments/assets/3b01e57a-28ce-4d4b-b2b9-e3c20b45351d" />
 
   ##
 
-If he tries to access with incorrect data or tries to access without adding the data, an error will be displayed.
+If incorrect data is provided or an attempt to log in without filling the fields is made, an error message will be displayed.
 
 <img src="https://github.com/user-attachments/assets/57092410-effe-4a83-a943-a9952b1bc293" />
 
 ##
 
-### Home page
+### 🏠 Home Page
 
-After logging in, you will be taken to the main page, where you can see about the system, contact support and go to the equipment listing screen.
+After logging in, the user will be taken to the main page, where they can learn more about the system, contact support, and navigate to the equipment listing screen.
 
 <img src="https://github.com/user-attachments/assets/9e2c7c67-d1b6-4298-bdd5-312c86ef79df" />
 
 ##
 
-### Equipment Page
+### 📊 Equipment Listing
 
-Once the user has selected the equipment tab, a table containing all the equipment will be displayed, and along with the table, there is a sector filter and an equipment filter.
+When the user selects the equipment tab, a table containing all registered equipment is displayed, along with filters for sectors and equipment types.
 
 <img src="https://github.com/user-attachments/assets/83dc4503-455b-4cdd-ba88-ecfcd66bf5b9" />
 
 ##
 
-### Register
+### 👤 User Registration
 
-Registration screen, where the administrator can create a user to use the system.
+A registration screen where the administrator can create new users to access the system.
 
 <img src="https://github.com/user-attachments/assets/10dee9d0-1bf0-49b8-8f5b-68cf882d7674" />
 
 ##
 
-### User Listing
+### 👥 User Listing
 
-Screen listing users registered in the system, where the administrator can edit the user, granting admin permission or not, or delete the user from the system.
+A screen listing all users registered in the system. The administrator can edit user permissions, granting or revoking admin rights, or delete users from the system.
 
 <img src="https://github.com/user-attachments/assets/1d1e95cc-f0f7-4c80-943a-26ae1e2e94c3" />
 
 ##
 
-### Machinery Listing
+### 🏗️ Machinery Listing
 
-Machinery listing screen, where the administrator can see the machines added to the system, being able to make changes, which are shown on the user's screen, and also delete them.
+A screen displaying all machinery added to the system. The administrator can make changes, which are reflected on the user’s screen, or delete machinery from the system.
 
 <img src="https://github.com/user-attachments/assets/8f8be5d7-9103-48ea-b445-ffd1a53af11c" />
 
 ##
 
-### Add Machinery
+### ➕ Add Machinery
 
-Where the administrator adds the machines to the system, containing name, source, processor, memory, storage, patrimony, system, sector and type of equipment.
+A screen where the administrator can add new machinery to the system, including details such as name, source, processor, memory, storage, asset number, operating system, sector, and type of equipment.
 
 <img src="https://github.com/user-attachments/assets/f8febfd7-f8d8-4ca5-bd8f-2d55fa37584c" />
 
 ##
 
-### Equipment Listing
+### 🛠️ Equipment Listing
 
-Equipment listing screen, where the administrator can view the equipment added to the system, making changes, which are shown on the user's screen, and also deleting them.
+A screen for listing all equipment added to the system. The administrator can modify or delete equipment, with changes immediately reflected on the user’s screen.
 
 <img src="https://github.com/user-attachments/assets/46aa758c-39a7-4ca8-97cd-12ef8e9d9be1" />
 
 ##
 
-### Add Equipment
+### ➕ Add Equipment
 
-Where the administrator adds the name of the equipment to the system.
+A screen where the administrator adds the name of new equipment to the system.
 
 <img src="https://github.com/user-attachments/assets/435d5be6-e70a-48f9-9418-bcfdf9f3c163" />
 
 ##
 
-### Sector Listing
+### 🏢 Sector Listing
 
-Sector listing screen, where the administrator can view the sectors added to the system, making changes, which are shown on the user's screen, and also deleting them.
+A screen listing all sectors registered in the system. The administrator can view, edit, and delete sector information.
 
 <img src="https://github.com/user-attachments/assets/2f965024-5c34-4178-a39f-eace8dd77f9c" />
 
 ##
 
-### Add Sector
+### ➕ Add Sector
 
-Where the administrator adds the sector name to the system.
+A screen where the administrator adds new sectors to the system.
 
 <img src="https://github.com/user-attachments/assets/0d89d129-dec9-463b-91e4-611ea69824da" />
 
 ##
 
 
-## Developer
+## 👨🏿‍💻 Developer
 Developed by Cleber.
 
 :email: devcleber@outlook.com
